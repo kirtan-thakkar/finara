@@ -137,13 +137,27 @@ export async function POST(request, { params }) {
     } = results[0] || {};
     const availableBalance = totalIncome - totalExpense;
     const savingsRate = calculateSavingsRate(totalIncome, totalExpense);
-    const insights = generateInsightsAI({
-      totalIncome,
-      totalExpense,
-      availableBalance,
-      categories,
-      savingsRate,
-    });
+
+    let insights = null;
+    if (totalIncome === 0 && totalExpense === 0) {
+      insights =
+        "No financial activity found for this period. Start tracking income and expenses to receive personalized insights.";
+    } else {
+      try {
+        insights = await generateInsightsAI({
+          totalIncome,
+          totalExpense,
+          availableBalance,
+          categories,
+          savingsRate,
+        });
+      } catch (error) {
+        console.error("Failed to generate insights:", error);
+        insights =
+          "AI insights are temporarily unavailable. Please try again later.";
+      }
+    }
+
     return NextResponse.json({
       message: "Report generated successfully",
       data: {
@@ -158,6 +172,7 @@ export async function POST(request, { params }) {
           savingsRate: `${savingsRate.toFixed(1)}%`,
         },
         topCategories: categories,
+        insights: insights,
         generatedAt: new Date().toISOString(),
       },
     });
