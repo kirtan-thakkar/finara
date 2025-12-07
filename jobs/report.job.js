@@ -5,10 +5,11 @@ import { sendReportEmail } from "@/app/api/send/route";
 import mongoose from "mongoose";
 import Report from "@/models/reports";
 export async function processReportJob() {
+  let processedCount = 0;
+  let errorCount = 0;
+  
   try {
     await ConnectDb();
-    let processedCount = 0;
-    let errorCount = 0;
     const mongoSession = await mongoose.startSession();
     const now = new Date();
     const firstDayOfPrevMonth = new Date(
