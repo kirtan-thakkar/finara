@@ -56,7 +56,6 @@ export async function POST(request, { params }) {
 
     toDate.setHours(23, 59, 59, 999);
 
-    // Generate report using the service function
     const reportData = await generateReportService(user._id, fromDate, toDate);
 
     if (!reportData) {

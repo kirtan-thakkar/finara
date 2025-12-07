@@ -1,26 +1,15 @@
 import { ConnectDb } from "@/app/lib/Mongodb";
 import ReportSetting from "@/models/reportSetting";
-import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+import { generateReportService, calculateNextReportDate } from "@/app/utils/helper";
+import mongoose from "mongoose";
+import Report from "@/models/reports";
 export async function processReportJob() {
   try {
     await ConnectDb();
-    const session = await auth();
-    if (!session?.user?.email) {
-      return NextResponse.json(
-        {
-          message: "Unauthorized - please login to continue",
-        },
-        { status: 401 }
-      );
-    }
-
+    let processedCount = 0;
+    let errorCount = 0;
+    const mongoSession = await mongoose.startSession();
     const now = new Date();
-    const firstDayOfCurrentMonth = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      1
-    );
     const firstDayOfPrevMonth = new Date(
       now.getFullYear(),
       now.getMonth() - 1,
@@ -28,41 +17,134 @@ export async function processReportJob() {
     );
     const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 
-    try {
-      const reportCursor = await ReportSetting.find({
-        isEnabled: true,
-        nextReportDate: { $lte: now },
-      }).populate("userId").cursor();
-      console.log("Processing reports for users with due reports");
-      
-      for await(const setting of reportCursor){
-        const user = setting.userId;
-        if (!user) {
-          console.log("User not found for report setting:", setting._id);
-          continue;
-        }
-        const report = await generateReportService
+    const reportCursor = ReportSetting.find({
+      isEnabled: true,
+      nextReportDate: { $lte: now },
+    })
+      .populate("userId")
+      .cursor();
+
+    console.log("Processing due reports...");
+
+    for await (const setting of reportCursor) {
+      const user = setting.userId;
+      if (!user) {
+        console.log("User not found for setting:", setting._id);
+        continue;
       }
 
-    } catch (error) {
-      return NextResponse.json(
-        {
-          message: "Error",
-          error: error.message,
-        },
-        { status: 500 }
-      );
+      let reportData = null;
+      try {
+        reportData = await generateReportService(
+          user._id,
+          firstDayOfPrevMonth,
+          lastDayOfPrevMonth
+        );
+      } catch (err) {
+        console.log("Report generation failed:", err);
+      }
+
+      let emailSent = false;
+      if (reportData) {
+        try {
+          emailSent = true;
+        } catch (err) {
+          emailSent = false;
+        }
+      }
+
+      try {
+        await mongoSession.withTransaction(async () => {
+          const bulkReports = [];
+          const bulkSettings = [];
+
+          if (reportData && emailSent) {
+            bulkReports.push({
+              insertOne: {
+                document: {
+                  userId: user._id,
+                  sentDate: now,
+                  period: reportData.period,
+                  status: "SENT",
+                  createdAt: now,
+                  updatedAt: now,
+                },
+              },
+            });
+
+            bulkSettings.push({
+              updateOne: {
+                filter: { _id: setting._id },
+                update: {
+                  $set: {
+                    lastSentDate: now,
+                    nextReportDate: calculateNextReportDate(now),
+                    updatedAt: now,
+                  },
+                },
+              },
+            });
+          } else {
+            bulkReports.push({
+              insertOne: {
+                document: {
+                  userId: user._id,
+                  sentDate: now,
+                  period:
+                    reportData?.period ||
+                    `${firstDayOfPrevMonth.toISOString().split("T")[0]} to ${
+                      lastDayOfPrevMonth.toISOString().split("T")[0]
+                    }`,
+                  status: reportData ? "FAILED" : "NO_ACTIVITY",
+                  createdAt: now,
+                  updatedAt: now,
+                },
+              },
+            });
+
+            bulkSettings.push({
+              updateOne: {
+                filter: { _id: setting._id },
+                update: {
+                  $set: {
+                    lastSentDate: null,
+                    nextReportDate: calculateNextReportDate(now),
+                    updatedAt: now,
+                  },
+                },
+              },
+            });
+          }
+
+          await Promise.all([
+            Report.bulkWrite(bulkReports, {
+              session: mongoSession,
+              ordered: false,
+            }),
+            ReportSetting.bulkWrite(bulkSettings, {
+              session: mongoSession,
+              ordered: false,
+            }),
+          ]);
+        });
+      } catch (Error) {
+        console.error("Transaction failed for user:", user._id, Error.message);
+      }
     }
+
+    await mongoSession.endSession();
+    console.log("Report cron job completed successfully")
+
+    processedCount++;
+    return { success: true };
   } catch (error) {
-    console.error("Error in processReportJob:", error);
-    return NextResponse.json(
-      {
-        message: "Internal Server Error",
-        error: error.message,
-        date: new Date().toISOString().split("T")[0],
-      },
-      { status: 500 }
-    );
+    console.error("Error in processReportJob:", error.message);
+    errorCount++;
+    
+    return {
+      success: false,
+      error: error.message,
+    };
   }
 }
 
