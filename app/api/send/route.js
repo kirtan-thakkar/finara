@@ -17,7 +17,7 @@ const capitalizeFirstLetter = (string) => {
 };
 
 export const sendReportEmail = async (params) => {
-  const { email, username, report, frequency } = params;
+  const { email, username, report, frequency } = await params;
 
   console.log("Sending email to:", email);
 
@@ -30,7 +30,7 @@ export const sendReportEmail = async (params) => {
   const text = `Your ${capitalizeFirstLetter(frequency)} Financial Report (${periodText})
 
 Income: ${formatCurrency(report.totalIncome || report.summary?.totalIncome || 0)}
-Expenses: ${formatCurrency(report.totalExpenses || report.summary?.totalExpense || 0)}
+Expenses: ${formatCurrency(report.totalExpense || report.summary?.totalExpense || 0)}
 Balance: ${formatCurrency(report.availableBalance || report.summary?.availableBalance || 0)}
 Savings Rate: ${(report.savingsRate || report.summary?.savingsRate || 0).toFixed(2)}%
 
@@ -46,7 +46,7 @@ ${report.insights || "No insights available"}
       username,
       period: periodText,
       totalIncome: report.totalIncome || report.summary?.totalIncome || 0,
-      totalExpense: report.totalExpenses || report.summary?.totalExpense || 0,
+      totalExpense: report.totalExpense || report.summary?.totalExpense || 0,
       availableBalance: report.availableBalance || report.summary?.availableBalance || 0,
       savingsRate: report.savingsRate || report.summary?.savingsRate || 0,
       topCategories: report.topSpendingCategories || report.topCategories || report.summary?.topCategories || [],

@@ -15,7 +15,7 @@ export function ReportEmailTemplate({
   username,
   period,
   totalIncome,
-  totalExpenses,
+  totalExpense,
   availableBalance,
   savingsRate,
   topSpendingCategories,
@@ -25,19 +25,14 @@ export function ReportEmailTemplate({
   const currentYear = new Date().getFullYear();
   const reportTitle = `${capitalizeFirstLetter(frequency)} Report`;
 
-  // Create category list HTML
-  const categoryList =
-    topSpendingCategories
-      ?.map(
-        (cat) => `
-      <li>
-        ${cat._id || cat.name} - ${formatCurrency(cat.total || cat.amount)} ${cat.percent ? `(${cat.percent}%)` : ""}
-      </li>
-    `
-      )
-      .join("") || "";
+  const categoryList = topSpendingCategories
+    ?.map(
+      (cat) => `<li>
+      ${cat._id || cat.name} - ${formatCurrency(cat.total || cat.amount)} ${cat.percent ? `(${cat.percent}%)` : ""}
+      </li>`
+    )
+    .join("") || "";
 
-  // Handle insights - if it's a string, wrap in li, if array, map to li
   const insightsList =
     typeof insights === "string"
       ? `<li>${insights}</li>`
@@ -129,7 +124,7 @@ export function ReportEmailTemplate({
                           <strong>Total Expenses:</strong>
                         </td>
                         <td style={{ textAlign: "right", fontSize: "16px" }}>
-                          {formatCurrency(totalExpenses)}
+                          {formatCurrency(totalExpense)}
                         </td>
                       </tr>
                       <tr>
@@ -164,7 +159,7 @@ export function ReportEmailTemplate({
                     <ul
                       style={{
                         paddingLeft: "20px",
-                        margin: 0,
+                        margin: "0",
                         fontSize: "16px",
                       }}
                       dangerouslySetInnerHTML={{ __html: categoryList }}
@@ -184,7 +179,7 @@ export function ReportEmailTemplate({
                     <ul
                       style={{
                         paddingLeft: "20px",
-                        margin: 0,
+                        margin: "0",
                         fontSize: "16px",
                       }}
                       dangerouslySetInnerHTML={{ __html: insightsList }}
@@ -213,235 +208,13 @@ export function ReportEmailTemplate({
                       color: "#999",
                     }}
                   >
-                    &copy; {currentYear} Finara. All rights reserved.
+                    &copy; {currentYear} Finora. All rights reserved.
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
         </table>
-        <div
-          style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            padding: "32px 24px",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              fontSize: "24px",
-              fontWeight: "700",
-              color: "#ffffff",
-              marginBottom: "8px",
-              letterSpacing: "-0.025em",
-            }}
-          >
-            Finara
-          </div>
-          <div
-            style={{
-              fontSize: "16px",
-              color: "rgba(255, 255, 255, 0.9)",
-              fontWeight: "500",
-            }}
-          >
-            {frequency} Financial Report
-          </div>
-        </div>
-
-        {/* Content */}
-        <div style={{ padding: "32px 24px" }}>
-          {/* Greeting */}
-          <div style={{ marginBottom: "28px" }}>
-            <h2
-              style={{
-                margin: "0 0 8px 0",
-                fontSize: "20px",
-                fontWeight: "600",
-                color: "#1e293b",
-              }}
-            >
-              Hi {username},
-            </h2>
-            <p
-              style={{
-                margin: 0,
-                color: "#64748b",
-                fontSize: "16px",
-              }}
-            >
-              Here's your financial summary for{" "}
-              <strong style={{ color: "#1e293b" }}>{period}</strong>
-            </p>
-          </div>
-
-          {/* Financial Summary Cards */}
-          <div
-            style={{
-              display: "grid",
-              gap: "16px",
-              marginBottom: "32px",
-            }}
-          >
-            {/* Income Card */}
-            <div
-              style={{
-                backgroundColor: "#f0fdf4",
-                border: "1px solid #bbf7d0",
-                borderRadius: "8px",
-                padding: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#15803d",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Total Income
-                </div>
-                <div
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "700",
-                    color: "#166534",
-                  }}
-                >
-                  {formatCurrency(totalIncome)}
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "#22c55e",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "20px",
-                    color: "#ffffff",
-                  }}
-                >
-                  ↗
-                </span>
-              </div>
-            </div>
-
-            {/* Expenses Card */}
-            <div
-              style={{
-                backgroundColor: "#fef2f2",
-                border: "1px solid #fecaca",
-                borderRadius: "8px",
-                padding: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#dc2626",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Total Expenses
-                </div>
-                <div
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "700",
-                    color: "#991b1b",
-                  }}
-                >
-                  {formatCurrency(totalExpenses)}
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "#ef4444",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "20px",
-                    color: "#ffffff",
-                  }}
-                >
-                  ↘
-                </span>
-              </div>
-            </div>
-
-            {/* Balance Card */}
-            <div
-              style={{
-                backgroundColor: availableBalance >= 0 ? "#f0f9ff" : "#fef2f2",
-                border: `1px solid ${availableBalance >= 0 ? "#bae6fd" : "#fecaca"}`,
-                borderRadius: "8px",
-                padding: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: availableBalance >= 0 ? "#0369a1" : "#dc2626",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Available Balance
-                </div>
-                <div
-                  style={{
-                    fontSize: "24px",
-                    fontWeight: "700",
-                    color: availableBalance >= 0 ? "#0c4a6e" : "#991b1b",
-                  }}
-                >
-                  {formatCurrency(availableBalance)}
-                </div>
-              </div>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: availableBalance >= 0 ? "#0369a1" : "#dc2626",
-                  backgroundColor:
-                    availableBalance >= 0 ? "#e0f2fe" : "#fee2e2",
-                  padding: "6px 12px",
-                  borderRadius: "20px",
-                }}
-              >
-                {savingsRate.toFixed(1)}% savings
-              </div>
-            </div>
-          </div>
-        </div>
       </body>
     </html>
   );

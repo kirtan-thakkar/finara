@@ -47,23 +47,23 @@ export const dailyTransactionsCron = inngest.createFunction(
 export const monthlyReportsCron = inngest.createFunction(
   {
     id: "monthly-reports-cron",
-    event: "cron/monthly-reports-cron",
+    name: "Monthly Reports Job",
   },
   {
     cron: "30 2 1 * *"  //2:30 am on every first day of the month
   },
   async ({ step }) => {
-    console.log("Scheduling Reports at 30 2 1 * *");
+    console.log("Starting monthly reports cron");
 
     const result = await step.run(
       "process-reports", 
       async () => {
         try {
-          await processReportJob();
+          const jobResult = await processReportJob();
           console.log("Reports completed");
-          return { success: true, job: "Reports" };
+          return { success: true, job: "Reports", details: jobResult };
         } catch (error) {
-          console.log("Reports failed", error);
+          console.log("Reports failed:", error);
           throw error;
         }
       }
