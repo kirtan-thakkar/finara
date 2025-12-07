@@ -15,8 +15,6 @@ export const recurringTransactionCreated = inngest.createFunction(
     }
 );
 
-// ⏰ SERVERLESS CRON: Daily Transactions Job (Replaces node-cron)
-// Equivalent to: scheduleJob("Transactions", "5 0 * * *", processRecurringTransactions)
 export const dailyTransactionsCron = inngest.createFunction(
   {
     id: "daily-transactions-cron",
@@ -46,15 +44,13 @@ export const dailyTransactionsCron = inngest.createFunction(
   }
 );
 
-// ⏰ SERVERLESS CRON: Monthly Reports Job (Replaces node-cron)  
-// Equivalent to: scheduleJob("Reports", "30 2 1 * *", processReportJob)
 export const monthlyReportsCron = inngest.createFunction(
   {
     id: "monthly-reports-cron",
-    name: "Monthly Reports Job",
+    event: "cron/monthly-reports-cron",
   },
   {
-    cron: "30 2 1 * *" // 2:30am every first of the month
+    cron: "30 2 1 * *"  //2:30 am on every first day of the month
   },
   async ({ step }) => {
     console.log("Scheduling Reports at 30 2 1 * *");

@@ -2,9 +2,8 @@ import { ConnectDb } from "@/app/lib/Mongodb";
 import { User } from "@/models/User";
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { calculateSavingsRate } from "@/app/utils/helper";
+import { calculateSavingsRate, generateReportService } from "@/app/utils/helper";
 import { Transactions } from "@/models/Transaction";
-import { generateInsightsAI } from "../../../utils/helper";
 import mongoose from "mongoose";
 export async function POST(request, { params }) {
   try {
@@ -57,61 +56,10 @@ export async function POST(request, { params }) {
 
     toDate.setHours(23, 59, 59, 999);
 
-    const results = await Transactions.aggregate([
-      {
-        $match: {
-          userId: new mongoose.Types.ObjectId(user._id),
-          date: { $gte: fromDate, $lte: toDate },
-        },
-      },
-      {
-        $facet: {
-          summary: [
-            {
-              $group: {
-                _id: null,
-                totalIncome: {
-                  $sum: {
-                    $cond: [{ $eq: ["$type", "INCOME"] }, "$amount", 0],
-                  },
-                },
-                totalExpense: {
-                  $sum: {
-                    $cond: [{ $eq: ["$type", "EXPENSE"] }, "$amount", 0],
-                  },
-                },
-              },
-            },
-          ],
-          categories: [
-            {
-              $match: {
-                type: "EXPENSE",
-                userId: new mongoose.Types.ObjectId(user._id),
-                date: { $gte: fromDate, $lte: toDate },
-              },
-            },
-            {
-              $group: {
-                _id: "$category",
-                total: { $sum: "$amount" },
-              },
-            },
-            { $sort: { total: -1 } },
-            { $limit: 5 },
-          ],
-        },
-      },
-      {
-        $project: {
-          totalIncome: { $arrayElemAt: ["$summary.totalIncome", 0] },
-          totalExpense: { $arrayElemAt: ["$summary.totalExpense", 0] },
-          categories: 1,
-        },
-      },
-    ]);
+    // Generate report using the service function
+    const reportData = await generateReportService(user._id, fromDate, toDate);
 
-    if (!results.length || !results[0]) {
+    if (!reportData) {
       return NextResponse.json({
         message: "No transactions found for the specified period",
         data: {
@@ -130,50 +78,15 @@ export async function POST(request, { params }) {
         },
       });
     }
-    const {
-      totalIncome = 0,
-      totalExpense = 0,
-      categories = [],
-    } = results[0] || {};
-    const availableBalance = totalIncome - totalExpense;
-    const savingsRate = calculateSavingsRate(totalIncome, totalExpense);
-
-    let insights = null;
-    if (totalIncome === 0 && totalExpense === 0) {
-      insights =
-        "No financial activity found for this period. Start tracking income and expenses to receive personalized insights.";
-    } else {
-      try {
-        insights = await generateInsightsAI({
-          totalIncome,
-          totalExpense,
-          availableBalance,
-          categories,
-          savingsRate,
-        });
-      } catch (error) {
-        console.error("Failed to generate insights:", error);
-        insights =
-          "AI insights are temporarily unavailable. Please try again later.";
-      }
-    }
 
     return NextResponse.json({
       message: "Report generated successfully",
       data: {
-        period: {
-          from: fromDate.toISOString().split("T")[0],
-          to: toDate.toISOString().split("T")[0],
-        },
+        ...reportData,
         summary: {
-          totalIncome,
-          totalExpense,
-          availableBalance,
-          savingsRate: `${savingsRate.toFixed(1)}%`,
+          ...reportData.summary,
+          savingsRate: `${reportData.summary.savingsRate}%`,
         },
-        topCategories: categories,
-        insights: insights,
-        generatedAt: new Date().toISOString(),
       },
     });
   } catch (error) {

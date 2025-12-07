@@ -82,3 +82,111 @@ Keep the entire response under 80 words.
     throw new Error(`Failed to generate insights: ${error.message}`);
   }
 }
+
+export const generateReportService = async (userId, fromDate, toDate) => {
+  const { Transactions } = await import("@/models/Transaction");
+  const mongoose = await import("mongoose");
+  
+  const results = await Transactions.aggregate([
+    {
+      $match: {
+        userId: new mongoose.Types.ObjectId(userId),
+        date: { $gte: fromDate, $lte: toDate },
+      },
+    },
+    {
+      $facet: {
+        summary: [
+          {
+            $group: {
+              _id: null,
+              totalIncome: {
+                $sum: {
+                  $cond: [{ $eq: ["$type", "INCOME"] }, "$amount", 0],
+                },
+              },
+              totalExpense: {
+                $sum: {
+                  $cond: [{ $eq: ["$type", "EXPENSE"] }, "$amount", 0],
+                },
+              },
+            },
+          },
+        ],
+        categories: [
+          {
+            $match: { type: "EXPENSE" },
+          },
+          {
+            $group: {
+              _id: "$category",
+              total: { $sum: "$amount" },
+            },
+          },
+          {
+            $sort: { total: -1 },
+          },
+          {
+            $limit: 5,
+          },
+        ],
+      },
+    },
+    {
+      $project: {
+        totalIncome: { $arrayElemAt: ["$summary.totalIncome", 0] },
+        totalExpense: { $arrayElemAt: ["$summary.totalExpense", 0] },
+        categories: 1,
+      },
+    },
+  ]);
+
+  if (!results.length || !results[0] || (results[0].totalIncome === 0 && results[0].totalExpense === 0)) {
+    return null;
+  }
+
+  const {
+    totalIncome = 0,
+    totalExpense = 0,
+    categories = [],
+  } = results[0] || {};
+
+  const availableBalance = totalIncome - totalExpense;
+  const savingsRate = calculateSavingsRate(totalIncome, totalExpense);
+  
+  const periodLabel = `${fromDate.toISOString().split('T')[0]} - ${toDate.toISOString().split('T')[0]}`;
+
+  let insights = null;
+  if (totalIncome === 0 && totalExpense === 0) {
+    insights = "No financial activity found for this period. Start tracking income and expenses to receive personalized insights.";
+  } else {
+    try {
+      insights = await generateInsightsAI({
+        totalIncome,
+        totalExpense,
+        availableBalance,
+        categories,
+        savingsRate,
+      });
+    } catch (error) {
+      console.error("Failed to generate insights:", error);
+      insights = "AI insights are temporarily unavailable. Please try again later.";
+    }
+  }
+
+  return {
+    period: {
+      from: fromDate.toISOString().split('T')[0],
+      to: toDate.toISOString().split('T')[0],
+    },
+    summary: {
+      totalIncome,
+      totalExpense,
+      availableBalance,
+      savingsRate: Number(savingsRate.toFixed(1)),
+    },
+    topCategories: categories,
+    insights,
+    generatedAt: new Date().toISOString(),
+  };
+};
