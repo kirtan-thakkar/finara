@@ -1,13 +1,10 @@
-import { auth } from "@/auth";
-import DummyClient from "@/components/dummy";
-import Navbar from "@/components/Navbar";
-export default async function Home() {
-  const session = await auth();
 
+import HeroPage from "@/components/HeroSection";
+export default async function Home() {
+  
   return (
-    <main className="p-10">
-      <Navbar />
-      <DummyClient session={session} /> 
+    <main>
+      <HeroPage />
     </main>
   );
 }

@@ -11,6 +11,9 @@
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",
     "@google/genai": "^1.30.0",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@remixicon/react": "^4.8.0",
+    "@tabler/icons-react": "^3.36.1",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.8.0",
     "clsx": "^2.1.1",
