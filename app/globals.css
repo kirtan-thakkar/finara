@@ -46,6 +46,82 @@
 
 :root {
   --radius: 0.625rem;
+  
+  /* Typography - Cabinet Font System */
+  --font-family-cabinet: 'CabinetGrotesk-Regular', system-ui, -apple-system, sans-serif;
+
+  /* Cabinet Typography Scale */
+  --cabinet-display-lg-size: clamp(5.787rem, calc(4.960rem + 4.135vw), 8.061rem);
+  --cabinet-display-lg-weight: 800;
+  --cabinet-display-lg-line-height: 1.42;
+  --cabinet-display-lg-letter-spacing: 0.004em;
+
+  --cabinet-display-md-size: clamp(4.647rem, calc(4.078rem + 2.843vw), 6.210rem);
+  --cabinet-display-md-weight: 800;
+  --cabinet-display-md-line-height: 1.42;
+  --cabinet-display-md-letter-spacing: 0.006em;
+
+  --cabinet-h1-size: clamp(3.731rem, calc(3.348rem + 1.915vw), 4.784rem);
+  --cabinet-h1-weight: 700;
+  --cabinet-h1-line-height: 1.42;
+  --cabinet-h1-letter-spacing: 0.006em;
+
+  --cabinet-h2-size: clamp(2.406rem, calc(2.248rem + 0.788vw), 2.839rem);
+  --cabinet-h2-weight: 600;
+  --cabinet-h2-line-height: 1.47;
+  --cabinet-h2-letter-spacing: 0.012em;
+
+  --cabinet-h3-size: clamp(1.932rem, calc(1.839rem + 0.465vw), 2.187rem);
+  --cabinet-h3-weight: 600;
+  --cabinet-h3-line-height: 1.47;
+  --cabinet-h3-letter-spacing: 0.016em;
+
+  --cabinet-h4-size: clamp(1.551rem, calc(1.502rem + 0.244vw), 1.685rem);
+  --cabinet-h4-weight: 500;
+  --cabinet-h4-line-height: 1.47;
+  --cabinet-h4-letter-spacing: 0.016em;
+
+  --cabinet-h5-size: clamp(1.390rem, calc(1.357rem + 0.162vw), 1.479rem);
+  --cabinet-h5-weight: 500;
+  --cabinet-h5-line-height: 1.52;
+  --cabinet-h5-letter-spacing: 0.02em;
+
+  --cabinet-h6-size: clamp(1.245rem, calc(1.226rem + 0.096vw), 1.298rem);
+  --cabinet-h6-weight: 500;
+  --cabinet-h6-line-height: 1.52;
+  --cabinet-h6-letter-spacing: 0.02em;
+
+  --cabinet-body-xl-size: clamp(1.116rem, calc(1.107rem + 0.042vw), 1.139rem);
+  --cabinet-body-xl-weight: 400;
+  --cabinet-body-xl-line-height: 1.52;
+  --cabinet-body-xl-letter-spacing: 0.024em;
+
+  --cabinet-body-size: clamp(1.000rem, calc(1.000rem + 0.000vw), 1.000rem);
+  --cabinet-body-weight: 400;
+  --cabinet-body-line-height: 1.52;
+  --cabinet-body-letter-spacing: 0.024em;
+
+  --cabinet-body-sm-size: clamp(0.896rem, calc(0.903rem + -0.033vw), 0.878rem);
+  --cabinet-body-sm-weight: 400;
+  --cabinet-body-sm-line-height: 1.57;
+  --cabinet-body-sm-letter-spacing: 0.024em;
+
+  --cabinet-caption-lg-size: clamp(0.803rem, calc(0.815rem + -0.059vw), 0.770rem);
+  --cabinet-caption-lg-weight: 400;
+  --cabinet-caption-lg-line-height: 1.57;
+  --cabinet-caption-lg-letter-spacing: 0.024em;
+
+  --cabinet-caption-size: clamp(0.720rem, calc(0.735rem + -0.079vw), 0.676rem);
+  --cabinet-caption-weight: 400;
+  --cabinet-caption-line-height: 1.57;
+  --cabinet-caption-letter-spacing: 0.024em;
+
+  --cabinet-overline-size: clamp(0.578rem, calc(0.598rem + -0.103vw), 0.521rem);
+  --cabinet-overline-weight: 500;
+  --cabinet-overline-line-height: 1.57;
+  --cabinet-overline-letter-spacing: 0.024em;
+
+  /* Color Variables */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -119,5 +195,121 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-family-cabinet);
+  }
+}
+
+/* Cabinet Typography Utility Classes */
+@layer utilities {
+  .cabinet-display-lg {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-display-lg-size);
+    font-weight: var(--cabinet-display-lg-weight);
+    line-height: var(--cabinet-display-lg-line-height);
+    letter-spacing: var(--cabinet-display-lg-letter-spacing);
+  }
+
+  .cabinet-display-md {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-display-md-size);
+    font-weight: var(--cabinet-display-md-weight);
+    line-height: var(--cabinet-display-md-line-height);
+    letter-spacing: var(--cabinet-display-md-letter-spacing);
+  }
+
+  .cabinet-h1 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h1-size);
+    font-weight: var(--cabinet-h1-weight);
+    line-height: var(--cabinet-h1-line-height);
+    letter-spacing: var(--cabinet-h1-letter-spacing);
+  }
+
+  .cabinet-h2 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h2-size);
+    font-weight: var(--cabinet-h2-weight);
+    line-height: var(--cabinet-h2-line-height);
+    letter-spacing: var(--cabinet-h2-letter-spacing);
+  }
+
+  .cabinet-h3 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h3-size);
+    font-weight: var(--cabinet-h3-weight);
+    line-height: var(--cabinet-h3-line-height);
+    letter-spacing: var(--cabinet-h3-letter-spacing);
+  }
+
+  .cabinet-h4 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h4-size);
+    font-weight: var(--cabinet-h4-weight);
+    line-height: var(--cabinet-h4-line-height);
+    letter-spacing: var(--cabinet-h4-letter-spacing);
+  }
+
+  .cabinet-h5 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h5-size);
+    font-weight: var(--cabinet-h5-weight);
+    line-height: var(--cabinet-h5-line-height);
+    letter-spacing: var(--cabinet-h5-letter-spacing);
+  }
+
+  .cabinet-h6 {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-h6-size);
+    font-weight: var(--cabinet-h6-weight);
+    line-height: var(--cabinet-h6-line-height);
+    letter-spacing: var(--cabinet-h6-letter-spacing);
+  }
+
+  .cabinet-body-xl {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-body-xl-size);
+    font-weight: var(--cabinet-body-xl-weight);
+    line-height: var(--cabinet-body-xl-line-height);
+    letter-spacing: var(--cabinet-body-xl-letter-spacing);
+  }
+
+  .cabinet-body {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-body-size);
+    font-weight: var(--cabinet-body-weight);
+    line-height: var(--cabinet-body-line-height);
+    letter-spacing: var(--cabinet-body-letter-spacing);
+  }
+
+  .cabinet-body-sm {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-body-sm-size);
+    font-weight: var(--cabinet-body-sm-weight);
+    line-height: var(--cabinet-body-sm-line-height);
+    letter-spacing: var(--cabinet-body-sm-letter-spacing);
+  }
+
+  .cabinet-caption-lg {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-caption-lg-size);
+    font-weight: var(--cabinet-caption-lg-weight);
+    line-height: var(--cabinet-caption-lg-line-height);
+    letter-spacing: var(--cabinet-caption-lg-letter-spacing);
+  }
+
+  .cabinet-caption {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-caption-size);
+    font-weight: var(--cabinet-caption-weight);
+    line-height: var(--cabinet-caption-line-height);
+    letter-spacing: var(--cabinet-caption-letter-spacing);
+  }
+
+  .cabinet-overline {
+    font-family: var(--font-family-cabinet);
+    font-size: var(--cabinet-overline-size);
+    font-weight: var(--cabinet-overline-weight);
+    line-height: var(--cabinet-overline-line-height);
+    letter-spacing: var(--cabinet-overline-letter-spacing);
   }
 }

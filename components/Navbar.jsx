@@ -21,8 +21,8 @@ export function Nav() {
   
   const navItems = [
     {
-      name: "company",
-      link: "#company",
+      name: "Company",
+      link: "company",
     },
   ];
 
@@ -59,10 +59,10 @@ export function Nav() {
         <NavBody>
           <NavbarLogo />
           <NavItems items={navItems} />
-          <div className="flex items-center gap-4 relative z-[100]">
+          <div className="flex items-center gap-4 relative z-100">
             {session?.user ? (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+                <div className="flex items-center gap-2 cabinet-body-sm text-neutral-600 dark:text-neutral-300">
                   <RiUserLine size={16} />
                   <span className="hidden sm:block">{session.user.name}</span>
                 </div>
@@ -73,7 +73,7 @@ export function Nav() {
                   className="text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-950"
                 >
                   <RiLogoutBoxLine size={16} className="mr-2" />
-                  Sign Out
+                  <span className="cabinet-body-sm">Sign Out</span>
                 </Button>
               </div>
             ) : (
@@ -87,7 +87,9 @@ export function Nav() {
                   size={16}
                   aria-hidden="true"
                 />
-                {status === "loading" ? "Loading..." : "Login with Google"}
+                <span className="cabinet-body-sm">
+                  {status === "loading" ? "Loading..." : "Login with Google"}
+                </span>
               </Button>
             )}
           </div>
@@ -108,14 +110,14 @@ export function Nav() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-neutral-600 dark:text-neutral-300">
+                className="relative cabinet-body text-neutral-600 dark:text-neutral-300">
                 <span className="block">{item.name}</span>
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
               {session?.user ? (
                 <>
-                  <div className="flex items-center gap-2 p-2 text-sm text-neutral-600 dark:text-neutral-300">
+                  <div className="flex items-center gap-2 p-2 cabinet-body-sm text-neutral-600 dark:text-neutral-300">
                     <RiUserLine size={16} />
                     <span>{session.user.name}</span>
                   </div>
@@ -128,7 +130,7 @@ export function Nav() {
                     className="w-full text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-950 cursor-pointer"
                     type="button">
                     <RiLogoutBoxLine size={16} className="mr-2" />
-                    Sign Out
+                    <span className="cabinet-body-sm">Sign Out</span>
                   </NavbarButton>
                 </>
               ) : (
@@ -142,7 +144,9 @@ export function Nav() {
                   className="w-full cursor-pointer"
                   type="button">
                   <RiGoogleFill size={16} className="mr-2" />
-                  {status === "loading" ? "Loading..." : "Login with Google"}
+                  <span className="cabinet-body-sm">
+                    {status === "loading" ? "Loading..." : "Login with Google"}
+                  </span>
                 </NavbarButton>
               )}
             </div>
