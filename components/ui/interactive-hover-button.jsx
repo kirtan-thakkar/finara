@@ -21,13 +21,13 @@ export function InteractiveHoverButton({
         <div
           className="bg-primary h-2 w-2 rounded-full transition-all duration-300 group-hover:scale-[100.8]"></div>
         <span
-          className={`inline-block transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0 ${outfit.className}`}>
+          className={`inline-block transition-all duration-300 group-hover:translate-x-12 group-hover:opacity-0 opacity-80 font-regular tracking-tight ${outfit.className}`}>
           {children}
         </span>
       </div>
       <div
-        className="text-primary-foreground absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:-translate-x-5 group-hover:opacity-100">
-        <span className={`${outfit.className}`}>{children}</span>
+        className="text-primary-foreground absolute top-0 z-10 flex h-full w-full translate-x-12 items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:-translate-x-5 group-hover:opacity-100 bg-[#1B2BB8]">
+        <span className={`${outfit.className} font-regular  tracking-tight`}>{children}</span>
         <ArrowRight />
       </div>
     </button>
