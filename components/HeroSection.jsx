@@ -10,6 +10,8 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Safari } from "./ui/safari";
+import { ProgressiveBlur } from "./ui/progressive-blur";
+import { ShimmerButton } from "@/components/ui/shimmer-button"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,7 +64,7 @@ const HeroPage = () => {
           <div className="relative flex flex-col items-center justify-center gap-10 max-w-[612px]">
             <BlurFade delay={0.6} inView>
               <h5
-                className={`${outfit.className} mx-auto text-sm sm:text-base  max-w-[280px] font-medium opacity-80 sm:max-w-[320px] md:max-w-[380px] lg:max-w-[445px]`}
+                className={`${outfit.className} mx-auto text-sm sm:text-base  max-w-[280px] font-medium opacity-80 sm:max-w-[320px] md:max-w-[380px] lg:max-w-[445px] text-center`}
               >
                 Track your income and expenses, visualize spending patterns, and
                 manage everything from a single, organized dashboard.Designed to
@@ -71,17 +73,17 @@ const HeroPage = () => {
               </h5>
             </BlurFade>
             <BlurFade delay={0.9} inView>
-              <div ref={containerRef}>
-                <InteractiveHoverButton>
+              <div>
+                <ShimmerButton background="#1B2BB8" shimmerDuration="4s" shimmerSize="0.15rem">
                   Start Tracking for Free
-                </InteractiveHoverButton>
+                </ShimmerButton>
               </div>
             </BlurFade>
           </div>
         </div>
-        <div className="w-full flex flex-col justify-center items-center overflow-x-auto">
+        <div className="w-full flex justify-center items-center px-4">
           <BlurFade delay={1.2} inView>
-            <div className="w-[1203px] max-w-none mx-auto">
+            <div className="w-[320px] sm:w-[480px] md:w-[640px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1203px]">
               <Safari url="www.finara.com/dashboard" imageSrc="https://placehold.co/1200x750?text=Hello+World"/>
             </div>
           </BlurFade>
