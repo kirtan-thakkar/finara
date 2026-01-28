@@ -29,38 +29,38 @@ const Bonny = localFont({
 const ThirdPage = () => {
   return (
     <div className="container mt-6 h-screen bg-black">
-      <div className="flex bg-amber-200 max-w-5xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 ">
+      <div className="flex max-w-5xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 ">
         <h1
           className={`text-3xl sm:text-5xl md:text-6xl text-center font-medium tracking-tighter ${outfit.className} mt-4 text-white `}
         >
           Track everything you <br></br>need in your pocket.
         </h1>
       </div>
-      <div className="max-w-5xl mt-6 bg-amber-400 h-screen mx-auto px-4 sm:px-6 md:px-8 lg:px-10 ">
+      <div className="max-w-5xl mt-6 h-screen mx-auto px-4 sm:px-6 md:px-8 lg:px-10 ">
         <div className="dark">
-          <Tabs defaultValue="overview" className="max-w-5xl mx-auto h-[500px]">
-            <TabsList className="!h-20 !rounded-4xl ">
+          <Tabs defaultValue="overview" className="max-w-4xl mx-auto h-[500px]">
+            <TabsList className="!h-20 !max-w-4xl !rounded-4xl mb-8">
               <TabsTrigger
                 value="overview"
-                className={`w-[300px] !h-16 !rounded-xl ${outfit.className}`}
+                className={`w-[300px] !h-16 !rounded-lg ${outfit.className} text-2xl`}
               >
-                Overview
+                <div><h3>Bank accounts</h3><span className={`${outfit.className} text-sm`}>Safely connect to your all<br></br>your bank accounts.</span></div>
               </TabsTrigger>
               <TabsTrigger
                 value="analytics"
-                className={`w-[300px] !h-24 !rounded-xl ${outfit.className}`}
+                className={`w-[300px] !h-24 !rounded-lg ${outfit.className} text-2xl`}
               >
                 Analytics
               </TabsTrigger>
               <TabsTrigger
                 value="reports"
-                className={`w-[300px] !h-16  ${outfit.className}`}
+                className={`w-[300px] !h-24 !rounded-lg ${outfit.className} text-2xl`}
               >
                 Reports
               </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" >
-              <div className="h-[400px] rounded-[48px] border bg-card text-card-foreground shadow-sm">
+              <div className="h-[400px] rounded-3xl border bg-card text-card-foreground shadow-sm">
                 <div className="flex flex-col space-y-1.5 p-6">
                   <h3 className="text-2xl font-semibold leading-none tracking-tight">
                     Overview
@@ -78,12 +78,12 @@ const ThirdPage = () => {
               </div>
             </TabsContent>
             <TabsContent value="analytics">
-              <div className="h-[400px] rounded-[48px] border bg-card text-card-foreground shadow-sm">
+              <div className="h-[400px] rounded-3xl border bg-card text-card-foreground shadow-sm">
                 <div className="flex flex-col space-y-1.5 p-6">
                   <h3 className="text-2xl font-semibold leading-none tracking-tight">
                     Analytics
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className={`text-sm text-muted-foreground ${outfit.className}`}>
                     Track performance and user engagement metrics. Monitor
                     trends and identify growth opportunities.
                   </p>
@@ -94,7 +94,7 @@ const ThirdPage = () => {
               </div>
             </TabsContent>
             <TabsContent value="reports">
-              <div className="h-[400px] rounded-[48px] border bg-card text-card-foreground shadow-sm">
+              <div className="h-[400px] rounded-3xl bg-card text-card-foreground shadow-sm">
                 <div className="flex flex-col space-y-1.5 p-6">
                   <h3 className="text-2xl font-semibold leading-none tracking-tight">
                     Reports
