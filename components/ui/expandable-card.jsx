@@ -1,8 +1,13 @@
 "use client";
 import * as React from "react"
 import { AnimatePresence, motion } from "motion/react"
-
+import { Outfit } from "next/font/google";
 import { cn } from "@/lib/utils"
+
+const outfit =Outfit({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+})
 
 export function ExpandableCard({
   title,
@@ -115,7 +120,7 @@ export function ExpandableCard({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex flex-col items-start gap-4 overflow-auto pb-10 text-base text-zinc-500 dark:text-zinc-400">
+                    className={`flex flex-col items-start gap-4 overflow-auto pb-10 text-base text-zinc-500 dark:text-zinc-400 ${outfit.className}`}>
                     {children}
                   </motion.div>
                 </div>
@@ -150,7 +155,7 @@ export function ExpandableCard({
               </motion.p>
               <motion.h3
                 layoutId={`title-${title}-${id}`}
-                className="font-semibold text-black md:text-left dark:text-white">
+                className={`font-semibold ${outfit.className} text-black md:text-left dark:text-white`}>
                 {title}
               </motion.h3>
             </div>

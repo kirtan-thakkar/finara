@@ -1,4 +1,9 @@
 "use client";
+// https://www.fancycomponents.dev/docs/components/filter/gooey-svg-filter
+// https://ui.tailus.io/?ref=shadway#
+// https://tweakcn.com/editor/theme?p=dashboard
+// https://lucide-animated.com/?ref=shadway   
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -29,45 +34,44 @@ const SecondPage = () => {
         >
           Finnara helps you...
         </h2>
-        <div className="container w-full min-h-[880px] flex flex-col justify-center items-center gap-4 p-4">
-          {/* First Row - 2 columns */}
-          <div className="w-full grid grid-cols-2 gap-4 max-w-6xl">
-            <div className="flex justify-center items-center">
-              <div className="max-w-md w-full">
+        <div className="container  min-h-[680px] flex flex-col justify-center items-center gap-4 p-8 max-w-6xl mx-auto">
+          <div className="flex justify-center items-center gap-4 ">
+            <div className="flex justify-start items-center mx-auto ">
+              <div className="">
                 <ExpandableCard
                   title="Track Expenses"
                   src="https://cdn.badtz-ui.com/images/components/expandable-card/haunted-house.webp"
                   description="Smart Spending"
                   classNameExpanded="[&_h4]:text-black dark:[&_h4]:text-white [&_h4]:font-medium"
                 >
-                  <h4>Monitor Your Daily Spending</h4>
-                  <p>
+                  <h4 className={`${outfit.className}`}>Monitor Your Daily Spending</h4>
+                  <p className={`${outfit.className}`}>
                     Keep track of every purchase with our intuitive expense tracking system. 
                     Categorize spending and see where your money goes each month.
                   </p>
-                  <h4>Smart Budget Alerts</h4>
-                  <p>
+                  <h4 className={`${outfit.className}`}>Smart Budget Alerts</h4>
+                  <p className={`${outfit.className}`}>
                     Get notified when you're approaching budget limits or spending more 
                     than usual in any category.
                   </p>
                 </ExpandableCard>
               </div>
             </div>
-            <div className="flex justify-center items-center">
-              <div className="max-w-md w-full">
+            <div className="flex justify-start items-center mx-auto ">
+              <div className="">
                 <ExpandableCard
                   title="Analyze Patterns"
                   src="https://cdn.badtz-ui.com/images/components/expandable-card/haunted-house.webp"
                   description="Data Insights"
                   classNameExpanded="[&_h4]:text-black dark:[&_h4]:text-white [&_h4]:font-medium"
                 >
-                  <h4>Visual Spending Reports</h4>
-                  <p>
+                  <h4 className={`${outfit.className}`}>Visual Spending Reports</h4>
+                  <p className={`${outfit.className}`}>
                     See detailed charts and graphs showing your spending patterns 
                     over time with beautiful, easy-to-understand visualizations.
                   </p>
-                  <h4>Monthly Comparisons</h4>
-                  <p>
+                  <h4 className={`${outfit.className}`}>Monthly Comparisons</h4>
+                  <p className={`${outfit.className}`}>
                     Compare spending across different months and categories to identify 
                     trends and make better financial decisions.
                   </p>
@@ -76,22 +80,21 @@ const SecondPage = () => {
             </div>
           </div>
           
-          {/* Second Row - 1 column centered */}
           <div className="w-full flex justify-center items-center max-w-6xl">
-            <div className="max-w-md w-full">
+            <div className="">
               <ExpandableCard
                 title="Achieve Goals"
                 src="https://cdn.badtz-ui.com/images/components/expandable-card/haunted-house.webp"
                 description="Financial Success"
                 classNameExpanded="[&_h4]:text-black dark:[&_h4]:text-white [&_h4]:font-medium"
               >
-                <h4>Set Savings Targets</h4>
-                <p>
+                <h4 className={`${outfit.className}`}>Set Savings Targets</h4>
+                <p className={`${outfit.className}`}>
                   Create specific savings goals and track your progress with 
                   visual indicators and milestone celebrations.
                 </p>
-                <h4>Automated Planning</h4>
-                <p>
+                <h4 className={`${outfit.className}`}>Automated Planning</h4>
+                <p className={`${outfit.className}`}>
                   Get personalized recommendations on how much to save each month 
                   to reach your financial goals on time.
                 </p>
