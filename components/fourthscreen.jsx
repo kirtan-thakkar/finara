@@ -12,7 +12,7 @@ const FourthPage = ()=>{
     return(
 
         <div className="`">
-            <h1>This is the fourth screen</h1>
+            <p>This is the fourth screen boi!</p>
         </div>
     )
 }
