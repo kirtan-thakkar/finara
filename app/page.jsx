@@ -1,4 +1,5 @@
 //backgroung #1B2BB8 blue shade che 
+import FifthScreen from "@/components/fifthScreen";
 import FourthPage from "@/components/fourthscreen";
 import HeroPage from "@/components/HeroSection";
 import SecondPage from "@/components/SecondScreen";
@@ -12,6 +13,7 @@ export default async function Home() {
       <SecondPage />
       <ThirdPage />
       <FourthPage />
+      <FifthScreen />
     </main>
   );
 }
