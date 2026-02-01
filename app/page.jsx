@@ -5,6 +5,7 @@ import HeroPage from "@/components/HeroSection";
 import SecondPage from "@/components/SecondScreen";
 import ThirdPage from "@/components/ThirdScreen";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
+import FooterSection from "@/components/footer";
 export default async function Home() {
   
   return (
@@ -14,6 +15,7 @@ export default async function Home() {
       <ThirdPage />
       <FourthPage />
       <FifthScreen />
+      <FooterSection />
     </main>
   );
 }

@@ -1,16 +1,35 @@
-import {Outfit} from 'next/font/google';
-import Footer from './Footer';
-
+import { Outfit } from "next/font/google";
+import { ShimmerButton } from "@/components/ui/shimmer-button"
+import localFont from "next/font/local";
 const outfit = Outfit({
-    subsets: ['latin'],
-})
-
-const FifthScreen =()=>{
-    return(
-        <div className="min-h-screen bg-neutral-200 flex flex-col">
-            <h1> This is the Fifth Screen</h1>
-
+  subsets: ["latin"],
+});
+const generalSans = localFont({
+  src: "../public/fonts/GeneralSans-Variable.woff2",
+  weight: "100 900",
+  style: "normal",
+});
+const FifthScreen = () => {
+  return (
+    <div className="h-[600px] mt-[-30] flex flex-col gap-12">
+      <div className="grow flex items-center justify-center px-5">
+        <div className="max-w-3xl">
+          <h1
+            className={`${generalSans.className}  font-medium text-black tracking-tighter text-4xl md:text-5xl lg:text-6xl mb-8 opacity-85`}
+          >
+            Use Finara to track smarter, save better, and make every dollar work
+            for you.
+          </h1>
+          <ShimmerButton
+            background="#1B2BB8"
+            shimmerDuration="4s"
+            shimmerSize="0.15rem"
+          >
+            Start Tracking for Free
+          </ShimmerButton>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 export default FifthScreen;
