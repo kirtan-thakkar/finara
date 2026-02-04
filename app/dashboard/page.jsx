@@ -5,6 +5,9 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
+import Navbar from "./NavDas"
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["400", "700"] });
@@ -12,7 +15,7 @@ const outfit = Outfit({ subsets: ["latin"], weight: ["400", "700"] });
 export default function DashboardPage(){
     return(
         <div>
-            <h1>Dashbaord!</h1>
+            <Navbar />
         </div>
     )
 }

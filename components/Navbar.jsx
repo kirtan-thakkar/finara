@@ -45,13 +45,6 @@ export function Nav() {
       console.error("Sign out error:", error);
     }
   };
-
-  // Debug session state
-  React.useEffect(() => {
-    console.log("Session status:", status);
-    console.log("Session data:", session);
-  }, [session, status]);
-
   return (
     <div className="relative w-full">
       <Navbar>
