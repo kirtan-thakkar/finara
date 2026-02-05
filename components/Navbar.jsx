@@ -15,6 +15,12 @@ import {
 } from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import * as React from "react";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export function Nav() {
   const { data: session, status } = useSession();
@@ -50,12 +56,14 @@ export function Nav() {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo />
+          <div className="flex items-center">
+            <span className={`text-xl font-bold text-primary ${outfit.className}`}>finara</span>
+          </div>
           <NavItems items={navItems} />
           <div className="flex items-center gap-4 relative z-100">
             {session?.user ? (
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 cabinet-body-sm text-neutral-600 dark:text-neutral-300">
+                <div className={`flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 ${outfit.className}`}>
                   <RiUserLine size={16} />
                   <span className="hidden sm:block">{session.user.name}</span>
                 </div>
@@ -80,7 +88,7 @@ export function Nav() {
                   size={16}
                   aria-hidden="true"
                 />
-                <span className="cabinet-body-sm">
+                <span className={`text-sm ${outfit.className}`}>
                   {status === "loading" ? "Loading..." : "Login with Google"}
                 </span>
               </Button>
@@ -91,7 +99,9 @@ export function Nav() {
         {/* Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
-            <NavbarLogo />
+            <div className="flex items-center">
+              <span className={`text-xl font-bold text-primary ${outfit.className}`}>finara</span>
+            </div>
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
@@ -103,14 +113,14 @@ export function Nav() {
                 key={`mobile-link-${idx}`}
                 href={item.link}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="relative cabinet-body text-neutral-600 dark:text-neutral-300">
+                className={`relative text-neutral-600 dark:text-neutral-300 ${outfit.className}`}>
                 <span className="block">{item.name}</span>
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
               {session?.user ? (
                 <>
-                  <div className="flex items-center gap-2 p-2 cabinet-body-sm text-neutral-600 dark:text-neutral-300">
+                  <div className={`flex items-center gap-2 p-2 text-sm text-neutral-600 dark:text-neutral-300 ${outfit.className}`}>
                     <RiUserLine size={16} />
                     <span>{session.user.name}</span>
                   </div>
@@ -123,7 +133,7 @@ export function Nav() {
                     className="w-full text-red-600 border-red-200 hover:bg-red-50 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-950 cursor-pointer"
                     type="button">
                     <RiLogoutBoxLine size={16} className="mr-2" />
-                    <span className="cabinet-body-sm">Sign Out</span>
+                    <span className={`text-sm ${outfit.className}`}>Sign Out</span>
                   </NavbarButton>
                 </>
               ) : (
@@ -137,7 +147,7 @@ export function Nav() {
                   className="w-full cursor-pointer"
                   type="button">
                   <RiGoogleFill size={16} className="mr-2" />
-                  <span className="cabinet-body-sm">
+                  <span className={`text-sm ${outfit.className}`}>
                     {status === "loading" ? "Loading..." : "Login with Google"}
                   </span>
                 </NavbarButton>
