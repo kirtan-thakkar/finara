@@ -38,12 +38,12 @@ function getInitials(name) {
 
 function IncomeExpenseChart() {
   return (
-    <div className="space-y-6" data-variant="outlined">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-medium text-[--title-text-color] mb-1">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
           Income vs Expenses
-        </h2>
-        <p className="text-sm text-[--body-text-color] mb-0 mt-1">
+        </h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Monthly income and expense comparison
         </p>
       </div>
@@ -85,12 +85,12 @@ function IncomeExpenseChart() {
 
 function ExpenseCategoryChart() {
   return (
-    <div className="space-y-6" data-variant="outlined">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-medium text-[--title-text-color] mb-1">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
           Expense Categories
-        </h2>
-        <p className="text-sm text-[--body-text-color] mb-0 mt-1">
+        </h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Monthly breakdown by category
         </p>
       </div>
@@ -122,48 +122,42 @@ function FinancialOverview() {
   const totalExpenses = incomeExpenseData.reduce((sum, month) => sum + month.Expenses, 0);
   
   return (
-    <div data-variant="outlined" className="w-full">
-      <h2 className="text-lg font-medium text-[--title-text-color] mb-1">
+    <div className="w-full">
+      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
         Financial Overview
-      </h2>
-      <p className="text-sm text-[--body-text-color] my-0">
+      </h3>
+      <p className="text-sm text-gray-500 dark:text-gray-400">
         Your financial summary for this year
       </p>
 
-      <div className="mt-6 grid gap-6 divide-y sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 divide-y divide-gray-200 dark:divide-gray-700 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3">
         <div>
-          <span className="text-xs text-[--caption-text-color]">Current Balance</span>
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <span className="text-2xl font-bold text-[--title-text-color]">${currentBalance.toLocaleString()}</span>
-            <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
-              <TrendingUp className="size-4 text-[--body-text-color]" />
-              <p className="text-sm text-[--body-text-color] my-0">
-                {balanceChange}%
-              </p>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Current Balance</p>
+          <div className="mt-2 flex items-center justify-between">
+            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${currentBalance.toLocaleString()}</p>
+            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+              <TrendingUp className="h-4 w-4" />
+              <span className="text-sm font-medium">{balanceChange}%</span>
             </div>
           </div>
         </div>
         <div className="pt-6 sm:pl-6 sm:pt-0">
-          <span className="text-xs text-[--caption-text-color]">Total Income</span>
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <span className="text-2xl font-bold text-[--title-text-color]">${totalIncome.toLocaleString()}</span>
-            <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
-              <TrendingUp className="size-4 text-[--body-text-color]" />
-              <p className="text-sm text-[--body-text-color] my-0">
-                8.2%
-              </p>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Income</p>
+          <div className="mt-2 flex items-center justify-between">
+            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${totalIncome.toLocaleString()}</p>
+            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+              <TrendingUp className="h-4 w-4" />
+              <span className="text-sm font-medium">8.2%</span>
             </div>
           </div>
         </div>
         <div className="pt-6 sm:hidden sm:pl-6 sm:pt-0 lg:block">
-          <span className="text-xs text-[--caption-text-color]">Total Expenses</span>
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <span className="text-2xl font-bold text-[--title-text-color]">${totalExpenses.toLocaleString()}</span>
-            <div className="flex items-center gap-1.5 text-red-600 dark:text-red-400">
-              <TrendingDown className="size-4 text-[--body-text-color]" />
-              <p className="text-sm text-[--body-text-color] my-0">
-                3.1%
-              </p>
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Expenses</p>
+          <div className="mt-2 flex items-center justify-between">
+            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${totalExpenses.toLocaleString()}</p>
+            <div className="flex items-center gap-1 text-red-500 dark:text-red-400">
+              <TrendingDown className="h-4 w-4" />
+              <span className="text-sm font-medium">3.1%</span>
             </div>
           </div>
         </div>
@@ -174,12 +168,12 @@ function FinancialOverview() {
 
 function BalanceTrendChart() {
   return (
-    <div className="space-y-6" data-variant="outlined">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-medium text-[--title-text-color]">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
           Balance Trend
-        </h2>
-        <p className="text-sm text-[--body-text-color] mb-0 mt-1">
+        </h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Your account balance growth over time
         </p>
       </div>
@@ -210,50 +204,54 @@ function BalanceTrendChart() {
 
 function TransactionsTable() {
   return (
-    <div data-variant="outlined" className="overflow-x-auto lg:overflow-clip">
-      <div className="sticky left-0 mb-6">
-        <h2 className="text-lg font-medium text-[--title-text-color]">
+    <div className="overflow-hidden">
+      <div className="mb-6">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
           Recent Transactions
-        </h2>
-        <p className="text-sm text-[--body-text-color] mb-0 mt-1">
+        </h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Your latest financial activities
         </p>
       </div>
-      <table className="min-w-max table-auto border-collapse space-y-1 sm:min-w-full">
-        <thead>
-          <tr className="text-sm text-[--title-text-color] *:bg-[--ui-soft-bg] *:p-3 *:text-left *:font-medium">
-            <th className="rounded-l-[--card-radius]">Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Type</th>
-            <th className="rounded-r-[--card-radius]">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction, index) => (
-            <tr
-              className="group items-center border-b text-sm text-[--body-text-color] *:p-3 hover:bg-gray-50 dark:hover:bg-gray-500/5"
-              key={transaction.id}
-            >
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.category}</td>
-              <td>
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  transaction.type === 'income' 
-                    ? 'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200'
-                    : 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-200'
-                }`}>
-                  {transaction.type}
-                </span>
-              </td>
-              <td className={transaction.type === 'income' ? 'text-green-600' : 'text-red-600'}>
-                ${Math.abs(transaction.amount)}
-              </td>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-gray-200 dark:border-gray-700">
+              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Date</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Description</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Category</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Type</th>
+              <th className="text-right py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            {transactions.map((transaction, index) => (
+              <tr
+                className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                key={transaction.id}
+              >
+                <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300">{transaction.date}</td>
+                <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-gray-100">{transaction.description}</td>
+                <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300">{transaction.category}</td>
+                <td className="py-3 px-4">
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    transaction.type === 'income' 
+                      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400'
+                      : 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400'
+                  }`}>
+                    {transaction.type}
+                  </span>
+                </td>
+                <td className={`py-3 px-4 text-sm font-medium text-right ${
+                  transaction.type === 'income' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'
+                }`}>
+                  ${Math.abs(transaction.amount)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -291,44 +289,44 @@ export default function DashboardPage(){
                 <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" ref={containerRef}>
                     <div className="mb-8 flex items-center justify-between">
                         <div>
-                            <h1 className="text-3xl font-bold text-[--title-text-color] mb-2">Financial Dashboard</h1>
-                            <p className="text-[--body-text-color]">Track your income, expenses, and financial goals</p>
+                            <h1 className="text-2xl font-medium text-gray-900 dark:text-gray-100 mb-1">Financial Dashboard</h1>
+                            <p className="text-gray-600 dark:text-gray-400">Track your income, expenses, and financial goals</p>
                         </div>
                         <button
                             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                            className="p-2 hover:bg-[--ui-soft-bg] rounded-lg transition-colors"
+                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
                         >
-                            <Menu className="w-5 h-5 text-[--body-text-color]" />
+                            <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                         </button>
                     </div>
 
                     <div className="dashboard-card mb-8">
-                        <div className="bg-white dark:bg-gray-800 border border-[--ui-border-color] rounded-[--card-radius] p-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                             <FinancialOverview />
                         </div>
                     </div>
 
-                    <div className="grid gap-8 lg:grid-cols-2 mb-8">
+                    <div className="grid gap-6 lg:grid-cols-2 mb-8">
                         <div className="dashboard-card">
-                            <div className="bg-white dark:bg-gray-800 border border-[--ui-border-color] rounded-[--card-radius] p-6">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                                 <IncomeExpenseChart />
                             </div>
                         </div>
                         <div className="dashboard-card">
-                            <div className="bg-white dark:bg-gray-800 border border-[--ui-border-color] rounded-[--card-radius] p-6">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                                 <ExpenseCategoryChart />
                             </div>
                         </div>
                     </div>
 
                     <div className="dashboard-card mb-8">
-                        <div className="bg-white dark:bg-gray-800 border border-[--ui-border-color] rounded-[--card-radius] p-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                             <BalanceTrendChart />
                         </div>
                     </div>
 
                     <div className="dashboard-card">
-                        <div className="bg-white dark:bg-gray-800 border border-[--ui-border-color] rounded-[--card-radius] p-6">
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
                             <TransactionsTable />
                         </div>
                     </div>
