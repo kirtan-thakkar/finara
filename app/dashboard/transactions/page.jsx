@@ -34,14 +34,14 @@ import {
 } from "../../../components/ui/sidebar";
 import { Separator } from "../../../components/ui/separator";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetFooter,
-  SheetClose,
-} from "../../../components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "../../../components/ui/dialog";
 import { Card, CardContent } from "../../../components/ui/card";
 import {
   Table,
@@ -687,15 +687,15 @@ export default function TransactionsPage() {
           </Card>
         </main>
 
-        {/* --- Create / Edit Transaction Sheet --- */}
-        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto gap-0">
-            <SheetHeader className="px-6 pt-6 pb-4">
-              <SheetTitle className="text-lg font-medium text-black">{sheetMode === "edit" ? "Edit Transaction" : "Add Transaction"}</SheetTitle>
-              <SheetDescription className="text-sm text-black/50">{sheetMode === "edit" ? "Update the transaction details." : "Create a new income or expense transaction."}</SheetDescription>
-            </SheetHeader>
+        {/* --- Create / Edit Transaction Dialog --- */}
+        <Dialog open={sheetOpen} onOpenChange={setSheetOpen}>
+          <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-medium text-black">{sheetMode === "edit" ? "Edit Transaction" : "Add Transaction"}</DialogTitle>
+              <DialogDescription className="text-sm text-black/50">{sheetMode === "edit" ? "Update the transaction details." : "Create a new income or expense transaction."}</DialogDescription>
+            </DialogHeader>
 
-            <form onSubmit={isFormSubmit} className="flex flex-col gap-5 px-6 pb-6">
+            <form onSubmit={isFormSubmit} className="flex flex-col gap-5">
               {formError && (
                 <div className="flex items-center gap-2 p-3 text-sm text-red-700 bg-red-50 rounded-lg">
                   <X className="w-4 h-4 shrink-0" />{formError}
@@ -800,9 +800,9 @@ export default function TransactionsPage() {
 
               {/* Footer buttons */}
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
-                <SheetClose asChild>
+                <DialogClose asChild>
                   <Button type="button" variant="outline" className="rounded-lg">Cancel</Button>
-                </SheetClose>
+                </DialogClose>
                 <Button type="submit" disabled={saving}
                   className="gap-2 bg-black text-white hover:bg-black/80 rounded-lg">
                   {saving && <Loader2 className="w-4 h-4 animate-spin" />}
@@ -810,17 +810,17 @@ export default function TransactionsPage() {
                 </Button>
               </div>
             </form>
-          </SheetContent>
-        </Sheet>
+          </DialogContent>
+        </Dialog>
 
-        {/* --- Scan Receipt Sheet --- */}
-        <Sheet open={scanSheetOpen} onOpenChange={setScanSheetOpen}>
-          <SheetContent side="right" className="w-full sm:max-w-md gap-0">
-            <SheetHeader className="px-6 pt-6 pb-4">
-              <SheetTitle className="text-lg font-medium text-black">Scan Receipt</SheetTitle>
-              <SheetDescription className="text-sm text-black/50">Upload a receipt image and our AI will extract the transaction details automatically.</SheetDescription>
-            </SheetHeader>
-            <div className="px-6 pb-6">
+        {/* --- Scan Receipt Dialog --- */}
+        <Dialog open={scanSheetOpen} onOpenChange={setScanSheetOpen}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-medium text-black">Scan Receipt</DialogTitle>
+              <DialogDescription className="text-sm text-black/50">Upload a receipt image and our AI will extract the transaction details automatically.</DialogDescription>
+            </DialogHeader>
+            <div>
               {scanError && (
                 <div className="flex items-center gap-2 p-3 text-sm text-red-700 bg-red-50 rounded-lg mb-4">
                   <X className="w-4 h-4 shrink-0" />{scanError}
@@ -856,8 +856,8 @@ export default function TransactionsPage() {
                 }}
               />
             </div>
-          </SheetContent>
-        </Sheet>
+          </DialogContent>
+        </Dialog>
       </SidebarInset>
     </SidebarProvider>
   );
