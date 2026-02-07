@@ -77,14 +77,16 @@ export function AppSidebar(props) {
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider font-semibold text-muted-foreground px-3">
+            Navigation
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-1.5">
               {mainNavItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.label} className="h-10 text-[15px] [&>svg]:size-5">
                       <Link href={item.href}>
                         <item.icon />
                         <span>{item.label}</span>
@@ -99,10 +101,10 @@ export function AppSidebar(props) {
       </SidebarContent>
 
       <SidebarFooter>
-        <SidebarMenu>
+        <SidebarMenu className="gap-1.5">
           {bottomNavItems.map((item) => (
             <SidebarMenuItem key={item.label}>
-              <SidebarMenuButton asChild tooltip={item.label}>
+              <SidebarMenuButton asChild tooltip={item.label} className="h-10 text-[15px] [&>svg]:size-5">
                 <Link href={item.href}>
                   <item.icon />
                   <span>{item.label}</span>
@@ -114,7 +116,7 @@ export function AppSidebar(props) {
             <SidebarMenuButton
               tooltip="Log out"
               onClick={handleSignOut}
-              className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-950"
+              className="h-10 text-[15px] [&>svg]:size-5 text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-950"
             >
               <LogOut />
               <span>Log out</span>
