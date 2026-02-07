@@ -4,10 +4,31 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState, useEffect, useCallback } from "react";
-import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis, CartesianGrid, YAxis, BarChart, Bar, Cell } from 'recharts';
-import { TrendingDown, TrendingUp, DollarSign, Loader2, Calendar } from 'lucide-react';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  Tooltip,
+  XAxis,
+  CartesianGrid,
+  YAxis,
+  BarChart,
+  Bar,
+  Cell,
+} from "recharts";
+import {
+  TrendingDown,
+  TrendingUp,
+  DollarSign,
+  Loader2,
+  Calendar,
+} from "lucide-react";
 import { AppSidebar } from "../../components/app-sidebar";
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "../../components/ui/sidebar";
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset,
+} from "../../components/ui/sidebar";
 import { Separator } from "../../components/ui/separator";
 import CustomTooltip from "../../components/CustomTooltip";
 
@@ -38,8 +59,12 @@ function IncomeExpenseChart({ data }) {
         </p>
       </div>
       <div className="flex items-center gap-4 text-xs font-medium text-black">
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Income</span>
-        <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Expenses</span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Income
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Expenses
+        </span>
       </div>
       {data.length === 0 ? (
         <div className="flex items-center justify-center h-[300px]">
@@ -48,25 +73,56 @@ function IncomeExpenseChart({ data }) {
       ) : (
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
+            <AreaChart
+              data={data}
+              margin={{ top: 5, right: 5, left: -10, bottom: 0 }}
+            >
               <defs>
                 <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#10b981" stopOpacity={0.2} />
                   <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
                 </linearGradient>
-                <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient
+                  id="expenseGradient"
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
                   <stop offset="0%" stopColor="#f43f5e" stopOpacity={0.15} />
                   <stop offset="100%" stopColor="#f43f5e" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-              <XAxis dataKey="date" fontSize={11} tickLine={false} axisLine={false} tick={{ fill: '#94a3b8' }}
-                tickFormatter={(val) => { const d = new Date(val); return `${d.getMonth()+1}/${d.getDate()}`; }}
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#e2e8f0"
+                vertical={false}
               />
-              <YAxis width={45} fontSize={11} tickLine={false} axisLine={false} tick={{ fill: '#94a3b8' }}
-                tickFormatter={(val) => val >= 1000 ? `$${(val/1000).toFixed(0)}k` : `$${val}`}
+              <XAxis
+                dataKey="date"
+                fontSize={11}
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: "#94a3b8" }}
+                tickFormatter={(val) => {
+                  const d = new Date(val);
+                  return `${d.getMonth() + 1}/${d.getDate()}`;
+                }}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#cbd5e1', strokeWidth: 1 }} />
+              <YAxis
+                width={45}
+                fontSize={11}
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: "#94a3b8" }}
+                tickFormatter={(val) =>
+                  val >= 1000 ? `$${(val / 1000).toFixed(0)}k` : `$${val}`
+                }
+              />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ stroke: "#cbd5e1", strokeWidth: 1 }}
+              />
               <Area
                 type="monotone"
                 dataKey="income"
@@ -74,7 +130,12 @@ function IncomeExpenseChart({ data }) {
                 stroke="#10b981"
                 strokeWidth={2}
                 fill="url(#incomeGradient)"
-                activeDot={{ r: 4, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }}
+                activeDot={{
+                  r: 4,
+                  fill: "#10b981",
+                  stroke: "#fff",
+                  strokeWidth: 2,
+                }}
               />
               <Area
                 type="monotone"
@@ -83,7 +144,12 @@ function IncomeExpenseChart({ data }) {
                 stroke="#f43f5e"
                 strokeWidth={2}
                 fill="url(#expenseGradient)"
-                activeDot={{ r: 4, fill: '#f43f5e', stroke: '#fff', strokeWidth: 2 }}
+                activeDot={{
+                  r: 4,
+                  fill: "#f43f5e",
+                  stroke: "#fff",
+                  strokeWidth: 2,
+                }}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -94,7 +160,7 @@ function IncomeExpenseChart({ data }) {
 }
 
 function ExpenseCategoryChart({ data }) {
-  const COLORS = ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899'];
+  const COLORS = ["#10b981", "#3b82f6", "#f59e0b", "#8b5cf6", "#ec4899"];
   return (
     <div className="space-y-4">
       <div>
@@ -112,17 +178,54 @@ function ExpenseCategoryChart({ data }) {
       ) : (
         <div className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data} layout="vertical" margin={{ top: 5, right: 5, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
-              <XAxis type="number" fontSize={11} tickLine={false} axisLine={false} tick={{ fill: '#94a3b8' }}
-                tickFormatter={(val) => val >= 1000 ? `$${(val/1000).toFixed(0)}k` : `$${val}`}
+            <BarChart
+              data={data}
+              layout="vertical"
+              margin={{ top: 5, right: 5, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#e2e8f0"
+                horizontal={false}
               />
-              <YAxis type="category" dataKey="name" width={85} fontSize={11} tickLine={false} axisLine={false} tick={{ fill: '#64748b' }} />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: '#f1f5f9' }} />
-              <Bar dataKey="value" name="Amount" radius={[0, 6, 6, 0]} barSize={28}>                {data.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <XAxis
+                type="number"
+                fontSize={11}
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: "#94a3b8" }}
+                tickFormatter={(val) =>
+                  val >= 1000 ? `$${(val / 1000).toFixed(0)}k` : `$${val}`
+                }
+              />
+              <YAxis
+                type="category"
+                dataKey="name"
+                width={85}
+                fontSize={11}
+                tickLine={false}
+                axisLine={false}
+                tick={{ fill: "#64748b" }}
+              />
+              <Tooltip
+                content={<CustomTooltip />}
+                cursor={{ fill: "#f1f5f9" }}
+              />
+              <Bar
+                dataKey="value"
+                name="Amount"
+                radius={[0, 6, 6, 0]}
+                barSize={28}
+              >
+                {" "}
+                {data.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
-              </Bar>            </BarChart>
+              </Bar>{" "}
+            </BarChart>
           </ResponsiveContainer>
         </div>
       )}
@@ -140,52 +243,84 @@ function FinancialOverview({ analytics }) {
 
   return (
     <div className="w-full">
-      <h3 className="text-xl md:text-2xl font-medium text-black tracking-tighter mb-1">
-        Financial Overview
-      </h3>
-      <p className="text-sm font-medium text-black/50">
-        Your financial summary
-      </p>
-
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-0">
+      <div className="mt-2 grid grid-cols-1 sm:grid-cols-3 gap-0">
         <div className="py-4 sm:py-0 sm:pr-6">
-          <p className="text-xs font-medium text-black/50 uppercase tracking-wide">Available Balance</p>
+          <p className="text-xs font-medium text-black/50 uppercase tracking-wide">
+            Available Balance
+          </p>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-2xl font-medium text-black">
-              ${availableBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              $
+              {availableBalance.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
             </p>
             {percentChange.balance != null && (
-              <div className={`flex items-center gap-1 ${percentChange.balance >= 0 ? "text-emerald-600" : "text-red-500"}`}>
-                {percentChange.balance >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-                <span className="text-sm font-medium">{Math.abs(percentChange.balance)}%</span>
+              <div
+                className={`flex items-center gap-1 ${percentChange.balance >= 0 ? "text-emerald-600" : "text-red-500"}`}
+              >
+                {percentChange.balance >= 0 ? (
+                  <TrendingUp className="h-4 w-4" />
+                ) : (
+                  <TrendingDown className="h-4 w-4" />
+                )}
+                <span className="text-sm font-medium">
+                  {Math.abs(percentChange.balance)}%
+                </span>
               </div>
             )}
           </div>
         </div>
         <div className="border-t sm:border-t-0 sm:border-l border-slate-200 py-4 sm:py-0 sm:px-6">
-          <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide">Total Income</p>
+          <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide">
+            Total Income
+          </p>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-2xl font-medium text-black">
-              ${totalIncome.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              $
+              {totalIncome.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
             </p>
             {percentChange.income != null && (
-              <div className={`flex items-center gap-1 ${percentChange.income >= 0 ? "text-emerald-600" : "text-red-500"}`}>
-                {percentChange.income >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-                <span className="text-sm font-medium">{Math.abs(percentChange.income)}%</span>
+              <div
+                className={`flex items-center gap-1 ${percentChange.income >= 0 ? "text-emerald-600" : "text-red-500"}`}
+              >
+                {percentChange.income >= 0 ? (
+                  <TrendingUp className="h-4 w-4" />
+                ) : (
+                  <TrendingDown className="h-4 w-4" />
+                )}
+                <span className="text-sm font-medium">
+                  {Math.abs(percentChange.income)}%
+                </span>
               </div>
             )}
           </div>
         </div>
         <div className="border-t sm:border-t-0 sm:border-l border-slate-200 py-4 sm:py-0 sm:pl-6">
-          <p className="text-xs font-medium text-rose-600 uppercase tracking-wide">Total Expenses</p>
+          <p className="text-xs font-medium text-rose-600 uppercase tracking-wide">
+            Total Expenses
+          </p>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-2xl font-medium text-black">
-              ${totalExpense.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+              $
+              {totalExpense.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
             </p>
             {percentChange.expense != null && (
-              <div className={`flex items-center gap-1 ${percentChange.expense >= 0 ? "text-red-500" : "text-emerald-600"}`}>
-                {percentChange.expense >= 0 ? <TrendingUp className="h-4 w-4" /> : <TrendingDown className="h-4 w-4" />}
-                <span className="text-sm font-medium">{Math.abs(percentChange.expense)}%</span>
+              <div
+                className={`flex items-center gap-1 ${percentChange.expense >= 0 ? "text-red-500" : "text-emerald-600"}`}
+              >
+                {percentChange.expense >= 0 ? (
+                  <TrendingUp className="h-4 w-4" />
+                ) : (
+                  <TrendingDown className="h-4 w-4" />
+                )}
+                <span className="text-sm font-medium">
+                  {Math.abs(percentChange.expense)}%
+                </span>
               </div>
             )}
           </div>
@@ -213,51 +348,73 @@ function TransactionsTable({ transactions, loading }) {
         </div>
       ) : transactions.length === 0 ? (
         <div className="py-8 text-center">
-          <p className="text-sm font-medium text-black/40">No transactions yet</p>
+          <p className="text-sm font-medium text-black/40">
+            No transactions yet
+          </p>
         </div>
       ) : (
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">Date</th>
-                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">Title</th>
-                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">Category</th>
-                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">Type</th>
-                <th className="text-right py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">Amount</th>
+                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">
+                  Date
+                </th>
+                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">
+                  Title
+                </th>
+                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">
+                  Category
+                </th>
+                <th className="text-left py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">
+                  Type
+                </th>
+                <th className="text-right py-3 px-4 text-xs font-medium text-black/50 uppercase tracking-wide">
+                  Amount
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {transactions.map((t) => (
-                <tr
-                  className="hover:bg-slate-50 transition-colors"
-                  key={t._id}
-                >
+                <tr className="hover:bg-slate-50 transition-colors" key={t._id}>
                   <td className="py-3 px-4 text-sm font-medium text-black/70">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-3.5 h-3.5 text-black/30" />
-                      {new Date(t.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      {new Date(t.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-sm font-medium text-black">{t.title}</td>
+                  <td className="py-3 px-4 text-sm font-medium text-black">
+                    {t.title}
+                  </td>
                   <td className="py-3 px-4">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-black/70">
                       {t.category}
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                      t.type === 'INCOME' 
-                        ? 'bg-emerald-100 text-emerald-700'
-                        : 'bg-red-100 text-red-700'
-                    }`}>
-                      {t.type === 'INCOME' ? 'Income' : 'Expense'}
+                    <span
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                        t.type === "INCOME"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {t.type === "INCOME" ? "Income" : "Expense"}
                     </span>
                   </td>
-                  <td className={`py-3 px-4 text-sm font-medium text-right tabular-nums ${
-                    t.type === 'INCOME' ? 'text-emerald-600' : 'text-red-600'
-                  }`}>
-                    {t.type === 'INCOME' ? '+' : '-'}${t.amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                  <td
+                    className={`py-3 px-4 text-sm font-medium text-right tabular-nums ${
+                      t.type === "INCOME" ? "text-emerald-600" : "text-red-600"
+                    }`}
+                  >
+                    {t.type === "INCOME" ? "+" : "-"}$
+                    {t.amount.toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                    })}
                   </td>
                 </tr>
               ))}
@@ -269,131 +426,154 @@ function TransactionsTable({ transactions, loading }) {
   );
 }
 
-export default function DashboardPage(){
-    const containerRef = useRef(null);
+export default function DashboardPage() {
+  const containerRef = useRef(null);
 
-    // State for API data
-    const [preset, setPreset] = useState("30days");
-    const [analytics, setAnalytics] = useState(null);
-    const [chartData, setChartData] = useState([]);
-    const [categoryData, setCategoryData] = useState([]);
-    const [recentTransactions, setRecentTransactions] = useState([]);
-    const [loading, setLoading] = useState(true);
+  // State for API data
+  const [preset, setPreset] = useState("30days");
+  const [analytics, setAnalytics] = useState(null);
+  const [chartData, setChartData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [recentTransactions, setRecentTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    // Fetch all dashboard data
-    const fetchDashboardData = useCallback(async () => {
-      setLoading(true);
-      try {
-        const [analyticsRes, chartRes, categoriesRes, txRes] = await Promise.all([
-          fetch(`/api/analytics?preset=${preset}`),
-          fetch(`/api/analytics/chart?preset=${preset}`),
-          fetch(`/api/analytics/categories?preset=${preset}`),
-          fetch("/api/transaction?pageSize=8&pageNumber=1"),
-        ]);
+  // Fetch all dashboard data
+  const fetchDashboardData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [analyticsRes, chartRes, categoriesRes, txRes] = await Promise.all([
+        fetch(`/api/analytics?preset=${preset}`),
+        fetch(`/api/analytics/chart?preset=${preset}`),
+        fetch(`/api/analytics/categories?preset=${preset}`),
+        fetch("/api/transaction?pageSize=8&pageNumber=1"),
+      ]);
 
-        const [analyticsData, chartJson, categoriesJson, txData] = await Promise.all([
+      const [analyticsData, chartJson, categoriesJson, txData] =
+        await Promise.all([
           analyticsRes.json(),
           chartRes.json(),
           categoriesRes.json(),
           txRes.json(),
         ]);
 
-        if (analyticsData.success) setAnalytics(analyticsData.data);
-        if (chartJson.success) setChartData(chartJson.data.chartData || []);
-        if (categoriesJson.success) setCategoryData(categoriesJson.data.breakdown || []);
-        if (txData.transactions) setRecentTransactions(txData.transactions);
-      } catch (error) {
-        console.error("Failed to load dashboard data:", error);
-      } finally {
-        setLoading(false);
+      if (analyticsData.success) setAnalytics(analyticsData.data);
+      if (chartJson.success) setChartData(chartJson.data.chartData || []);
+      if (categoriesJson.success)
+        setCategoryData(categoriesJson.data.breakdown || []);
+      if (txData.transactions) setRecentTransactions(txData.transactions);
+    } catch (error) {
+      console.error("Failed to load dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [preset]);
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, [fetchDashboardData]);
+
+  useGSAP(
+    () => {
+      const cards = containerRef.current?.querySelectorAll(".dashboard-card");
+      if (cards) {
+        gsap.fromTo(
+          cards,
+          {
+            opacity: 0,
+            y: 50,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          },
+        );
       }
-    }, [preset]);
+    },
+    { scope: containerRef },
+  );
 
-    useEffect(() => {
-      fetchDashboardData();
-    }, [fetchDashboardData]);
-    
-    useGSAP(() => {
-        const cards = containerRef.current?.querySelectorAll('.dashboard-card');
-        if (cards) {
-            gsap.fromTo(cards, {
-                opacity: 0,
-                y: 50
-            }, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
-                }
-            });
-        }
-    }, { scope: containerRef });
+  return (
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className={generalSans.className}>
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+        </header>
+        <main
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full"
+          ref={containerRef}
+        >
+          <div className="mb-8 flex items-start justify-between gap-4">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tighter mb-1">
+                Overview
+              </h2>
+              <p className="font-medium text-black/50">
+                Track your income, expenses, and financial goals
+              </p>
+            </div>
+            <select
+              value={preset}
+              onChange={(e) => setPreset(e.target.value)}
+              className="px-3 py-2 text-sm font-medium text-black bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors shrink-0"
+            >
+              {PRESET_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
-    return(
-        <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset className={generalSans.className}>
-                <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
-                    <SidebarTrigger className="-ml-1" />
-                    <Separator orientation="vertical" className="mr-2 h-4" />
-                </header>
-                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full" ref={containerRef}>
-                    <div className="mb-8 flex items-start justify-between gap-4">
-                        <div>
-                            <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tighter mb-1">Overview</h2>
-                            <p className="font-medium text-black/50">Track your income, expenses, and financial goals</p>
-                        </div>
-                        <select
-                          value={preset}
-                          onChange={(e) => setPreset(e.target.value)}
-                          className="px-3 py-2 text-sm font-medium text-black bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors shrink-0"
-                        >
-                          {PRESET_OPTIONS.map((opt) => (
-                            <option key={opt.value} value={opt.value}>{opt.label}</option>
-                          ))}
-                        </select>
-                    </div>
+          {loading && !analytics ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-6 h-6 text-emerald-600 animate-spin" />
+              <span className="ml-3 text-sm font-medium text-black/50">
+                Loading dashboard...
+              </span>
+            </div>
+          ) : (
+            <>
+              <div className="dashboard-card mb-8">
+                <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
+                  <FinancialOverview analytics={analytics} />
+                </div>
+              </div>
 
-                    {loading && !analytics ? (
-                      <div className="flex items-center justify-center py-20">
-                        <Loader2 className="w-6 h-6 text-emerald-600 animate-spin" />
-                        <span className="ml-3 text-sm font-medium text-black/50">Loading dashboard...</span>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="dashboard-card mb-8">
-                            <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
-                                <FinancialOverview analytics={analytics} />
-                            </div>
-                        </div>
+              <div className="grid gap-6 lg:grid-cols-2 mb-8">
+                <div className="dashboard-card">
+                  <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
+                    <IncomeExpenseChart data={chartData} />
+                  </div>
+                </div>
+                <div className="dashboard-card">
+                  <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
+                    <ExpenseCategoryChart data={categoryData} />
+                  </div>
+                </div>
+              </div>
 
-                        <div className="grid gap-6 lg:grid-cols-2 mb-8">
-                            <div className="dashboard-card">
-                                <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
-                                    <IncomeExpenseChart data={chartData} />
-                                </div>
-                            </div>
-                            <div className="dashboard-card">
-                                <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
-                                    <ExpenseCategoryChart data={categoryData} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="dashboard-card">
-                            <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
-                                <TransactionsTable transactions={recentTransactions} loading={loading} />
-                            </div>
-                        </div>
-                      </>
-                    )}
-                </main>
-            </SidebarInset>
-        </SidebarProvider>
-    )
+              <div className="dashboard-card">
+                <div className="bg-white border border-slate-200/60 rounded-xl p-6 shadow-sm">
+                  <TransactionsTable
+                    transactions={recentTransactions}
+                    loading={loading}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }
