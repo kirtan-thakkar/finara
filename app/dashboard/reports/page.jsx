@@ -1,6 +1,6 @@
 "use client";
 
-import { Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import { BarChart3 } from "lucide-react";
 import { AppSidebar } from "../../../components/app-sidebar";
 import {
@@ -10,13 +10,16 @@ import {
 } from "../../../components/ui/sidebar";
 import { Separator } from "../../../components/ui/separator";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const generalSans = localFont({
+  src: "../../../public/fonts/GeneralSans-Variable.woff2",
+  variable: "--font-general-sans",
+});
 
 export default function ReportsPage() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset className={outfit.className}>
+      <SidebarInset className={generalSans.className}>
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
