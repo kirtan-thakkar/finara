@@ -3,13 +3,14 @@ import { Outfit } from "next/font/google";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { faker } from '@faker-js/faker';
 import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis, CartesianGrid, YAxis, BarChart, Bar, LabelList } from 'recharts';
-import { TrendingDown, TrendingUp, Menu, DollarSign, CreditCard, Wallet } from 'lucide-react';
+import { TrendingDown, TrendingUp, DollarSign, CreditCard, Wallet } from 'lucide-react';
 import { incomeExpenseData, categoryData, monthlyBalanceData } from '../../lib/dashboardData';
-import Navbar from "./NavDas";
-import Sidebar from "../../components/Sidebar";
+import { AppSidebar } from "../../components/app-sidebar";
+import { SidebarProvider, SidebarTrigger, SidebarInset } from "../../components/ui/sidebar";
+import { Separator } from "../../components/ui/separator";
 import CustomTooltip from "../../components/CustomTooltip";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -40,10 +41,10 @@ function IncomeExpenseChart() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter mb-1">
           Income vs Expenses
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Monthly income and expense comparison
         </p>
       </div>
@@ -87,10 +88,10 @@ function ExpenseCategoryChart() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter mb-1">
           Expense Categories
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Monthly breakdown by category
         </p>
       </div>
@@ -123,18 +124,18 @@ function FinancialOverview() {
   
   return (
     <div className="w-full">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-1">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter mb-1">
         Financial Overview
       </h3>
-      <p className="text-sm text-gray-500 dark:text-gray-400">
+      <p className="text-sm text-slate-500 dark:text-slate-400">
         Your financial summary for this year
       </p>
 
-      <div className="mt-6 grid gap-6 divide-y divide-gray-200 dark:divide-gray-700 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 divide-y divide-slate-200 dark:divide-slate-700 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-3">
         <div>
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Current Balance</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Current Balance</p>
           <div className="mt-2 flex items-center justify-between">
-            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${currentBalance.toLocaleString()}</p>
+            <p className="text-2xl font-medium text-slate-800 dark:text-slate-100">${currentBalance.toLocaleString()}</p>
             <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
               <TrendingUp className="h-4 w-4" />
               <span className="text-sm font-medium">{balanceChange}%</span>
@@ -142,9 +143,9 @@ function FinancialOverview() {
           </div>
         </div>
         <div className="pt-6 sm:pl-6 sm:pt-0">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Income</p>
+          <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Total Income</p>
           <div className="mt-2 flex items-center justify-between">
-            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${totalIncome.toLocaleString()}</p>
+            <p className="text-2xl font-medium text-slate-800 dark:text-slate-100">${totalIncome.toLocaleString()}</p>
             <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
               <TrendingUp className="h-4 w-4" />
               <span className="text-sm font-medium">8.2%</span>
@@ -152,9 +153,9 @@ function FinancialOverview() {
           </div>
         </div>
         <div className="pt-6 sm:hidden sm:pl-6 sm:pt-0 lg:block">
-          <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Total Expenses</p>
+          <p className="text-xs font-medium text-rose-600 dark:text-rose-400 uppercase tracking-wide">Total Expenses</p>
           <div className="mt-2 flex items-center justify-between">
-            <p className="text-2xl font-medium text-gray-900 dark:text-gray-100">${totalExpenses.toLocaleString()}</p>
+            <p className="text-2xl font-medium text-slate-800 dark:text-slate-100">${totalExpenses.toLocaleString()}</p>
             <div className="flex items-center gap-1 text-red-500 dark:text-red-400">
               <TrendingDown className="h-4 w-4" />
               <span className="text-sm font-medium">3.1%</span>
@@ -170,10 +171,10 @@ function BalanceTrendChart() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter">
           Balance Trend
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Your account balance growth over time
         </p>
       </div>
@@ -206,33 +207,33 @@ function TransactionsTable() {
   return (
     <div className="overflow-hidden">
       <div className="mb-6">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter">
           Recent Transactions
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Your latest financial activities
         </p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Date</th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Description</th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Category</th>
-              <th className="text-left py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Type</th>
-              <th className="text-right py-3 px-4 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Amount</th>
+            <tr className="border-b border-slate-200 dark:border-slate-700">
+              <th className="text-left py-3 px-4 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Date</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Description</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Category</th>
+              <th className="text-left py-3 px-4 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Type</th>
+              <th className="text-right py-3 px-4 text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Amount</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
             {transactions.map((transaction, index) => (
               <tr
-                className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 key={transaction.id}
               >
-                <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300">{transaction.date}</td>
-                <td className="py-3 px-4 text-sm font-medium text-gray-900 dark:text-gray-100">{transaction.description}</td>
-                <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300">{transaction.category}</td>
+                <td className="py-3 px-4 text-sm text-slate-600 dark:text-slate-300">{transaction.date}</td>
+                <td className="py-3 px-4 text-sm font-medium text-slate-800 dark:text-slate-100">{transaction.description}</td>
+                <td className="py-3 px-4 text-sm text-slate-600 dark:text-slate-300">{transaction.category}</td>
                 <td className="py-3 px-4">
                   <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                     transaction.type === 'income' 
@@ -258,7 +259,6 @@ function TransactionsTable() {
 
 export default function DashboardPage(){
     const containerRef = useRef(null);
-    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
     
     useGSAP(() => {
         const cards = containerRef.current?.querySelectorAll('.dashboard-card');
@@ -282,56 +282,52 @@ export default function DashboardPage(){
     }, { scope: containerRef });
 
     return(
-        <div className={outfit.className}>
-            <Sidebar isCollapsed={sidebarCollapsed} />
-            <div className={`transition-all duration-300 ${sidebarCollapsed ? 'ml-16' : 'ml-64'}`}>
-                <Navbar />
-                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" ref={containerRef}>
-                    <div className="mb-8 flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-medium text-gray-900 dark:text-gray-100 mb-1">Financial Dashboard</h1>
-                            <p className="text-gray-600 dark:text-gray-400">Track your income, expenses, and financial goals</p>
-                        </div>
-                        <button
-                            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                        >
-                            <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                        </button>
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset className={outfit.className}>
+                <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+                    <SidebarTrigger className="-ml-1" />
+                    <Separator orientation="vertical" className="mr-2 h-4" />
+
+                </header>
+                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full" ref={containerRef}>
+                    <div className="mb-8">
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black dark:text-white tracking-tighter mb-1">Overview</h2>
+                        <p className="text-slate-500 dark:text-slate-400">Track your income, expenses, and financial goals</p>
                     </div>
 
                     <div className="dashboard-card mb-8">
-                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+                        <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                             <FinancialOverview />
                         </div>
                     </div>
 
                     <div className="grid gap-6 lg:grid-cols-2 mb-8">
                         <div className="dashboard-card">
-                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+                            <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                                 <IncomeExpenseChart />
                             </div>
                         </div>
                         <div className="dashboard-card">
-                            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+                            <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                                 <ExpenseCategoryChart />
                             </div>
                         </div>
                     </div>
 
                     <div className="dashboard-card mb-8">
-                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+                        <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                             <BalanceTrendChart />
                         </div>
                     </div>
 
                     <div className="dashboard-card">
-                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+                        <div className="bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/50 rounded-xl p-6 shadow-sm">
                             <TransactionsTable />
                         </div>
                     </div>
                 </main>
-            </div>
-        </div>
+            </SidebarInset>
+        </SidebarProvider>
     )
 }
