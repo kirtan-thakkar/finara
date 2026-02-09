@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { genAI, genAIModel } from "@/app/lib/google";
-import cloudinary from "@/app/lib/cloudinary";
+import cloudinary from "@/app/lib/cloudinary";  
 export async function POST(request) {
   try {
     const session = await auth();

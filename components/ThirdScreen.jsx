@@ -111,8 +111,8 @@ const ThirdPage = () => {
 
   },[])
   return (
-    <div className="container h-full pb-12 bg-black ">
-      <div className="flex max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mb-12 ">
+    <div className="container h-full pb-12">
+      <div className="flex max-w-4xl mx-auto px-4  sm:px-6 md:px-8 lg:px-12 mb-12 ">
         <h1
           className={`text-3xl sm:text-5xl md:text-6xl text-center font-medium tracking-tighter ${outfit.className} mt-24 text-white `}
         >
