@@ -72,7 +72,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "../../../components/ui/dropdown-menu";
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 
 const generalSans = localFont({
   src: "../../../public/fonts/GeneralSans-Variable.woff2",
@@ -111,6 +111,7 @@ const EMPTY_FORM = {
 };
 
 export default function TransactionsPage() {
+  const lenis = useLenis();
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -152,6 +153,17 @@ export default function TransactionsPage() {
   const [scanning, setScanning] = useState(false);
   const [scanError, setScanError] = useState("");
   const receiptInputRef = useRef(null);
+
+  useEffect(() => {
+    if (!lenis) return;
+    const shouldLockScroll = sheetOpen || scanSheetOpen;
+    if (shouldLockScroll) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+    return () => lenis.start();
+  }, [lenis, sheetOpen, scanSheetOpen]);
 
   // Analytics state
   const [analytics, setAnalytics] = useState(null);
@@ -691,9 +703,9 @@ export default function TransactionsPage() {
 
         {/* --- Create / Edit Transaction Dialog --- */}
         <Dialog open={sheetOpen} onOpenChange={setSheetOpen}>
-          <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogContent className={`sm:max-w-lg max-h-[90vh] overflow-y-auto ${generalSans.className}`}>
             <DialogHeader>
-              <DialogTitle className="text-lg font-medium text-black">{sheetMode === "edit" ? "Edit Transaction" : "Add Transaction"}</DialogTitle>
+              <DialogTitle className={`${generalSans.className} text-2xl tracking-tight font-medium text-black`}>{sheetMode === "edit" ? "Edit Transaction " : "Add Transaction"}</DialogTitle>
               <DialogDescription className="text-sm text-black/50">{sheetMode === "edit" ? "Update the transaction details." : "Create a new income or expense transaction."}</DialogDescription>
             </DialogHeader>
 
@@ -743,7 +755,7 @@ export default function TransactionsPage() {
                 <div>
                   <Label htmlFor="category" className="mb-1.5 block text-sm font-medium text-black">Category *</Label>
                   <Select value={formData.category} onValueChange={(val) => setFormData({ ...formData, category: val })}>
-                    <SelectTrigger className="bg-slate-50 border-slate-200 rounded-lg">
+                    <SelectTrigger className="w-full bg-slate-50 border-slate-200 rounded-lg">
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -762,7 +774,7 @@ export default function TransactionsPage() {
               <div>
                 <Label htmlFor="paymentMethod" className="mb-1.5 block text-sm font-medium text-black">Payment Method</Label>
                 <Select value={formData.paymentMethod} onValueChange={(val) => setFormData({ ...formData, paymentMethod: val })}>
-                  <SelectTrigger className="bg-slate-50 border-slate-200 rounded-lg">
+                  <SelectTrigger className="w-full bg-slate-50 border-slate-200 rounded-lg">
                     <SelectValue placeholder="Select method" />
                   </SelectTrigger>
                   <SelectContent>
@@ -790,7 +802,7 @@ export default function TransactionsPage() {
                 </div>
                 {formData.isRecurring && (
                   <Select value={formData.recurringInterval} onValueChange={(val) => setFormData({ ...formData, recurringInterval: val })}>
-                    <SelectTrigger className="mt-2 bg-slate-50 border-slate-200 rounded-lg">
+                    <SelectTrigger className="mt-2 w-full bg-slate-50 border-slate-200 rounded-lg">
                       <SelectValue placeholder="Select interval" />
                     </SelectTrigger>
                     <SelectContent>
@@ -817,7 +829,7 @@ export default function TransactionsPage() {
 
         {/* --- Scan Receipt Dialog --- */}
         <Dialog open={scanSheetOpen} onOpenChange={setScanSheetOpen}>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className={`sm:max-w-md ${generalSans.className}`}>
             <DialogHeader>
               <DialogTitle className="text-lg font-medium text-black">Scan Receipt</DialogTitle>
               <DialogDescription className="text-sm text-black/50">Upload a receipt image and our AI will extract the transaction details automatically.</DialogDescription>

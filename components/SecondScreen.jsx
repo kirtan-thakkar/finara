@@ -84,7 +84,7 @@ const SecondPage = () => {
         </div>
       </div>
 
-      <div className="relative z-[2] bg-black rounded-t-[60px] overflow-hidden">
+      <div className="relative z-[2] mt-96 bg-black rounded-t-[60px] overflow-hidden">
         <ThirdPage />
       </div>
     </div>

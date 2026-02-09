@@ -45,6 +45,13 @@ import {
 import { Separator } from "../../../components/ui/separator";
 import CustomTooltip from "../../../components/CustomTooltip";
 import { ReactLenis } from "lenis/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../../components/ui/select";
 gsap.registerPlugin(ScrollTrigger);
 
 const generalSans = localFont({
@@ -451,12 +458,18 @@ export default function AnalyticsPage() {
               <h2 className="text-2xl md:text-3xl font-medium text-black tracking-tighter mb-1">Analytics</h2>
               <p className="font-medium text-black/50">Deep dive into your financial performance</p>
             </div>
-            <select value={preset} onChange={(e) => setPreset(e.target.value)}
-              className="px-3 py-2 text-sm font-medium text-black bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20 transition-colors shrink-0">
-              {PRESET_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>{opt.label}</option>
-              ))}
-            </select>
+            <Select value={preset} onValueChange={setPreset}>
+              <SelectTrigger className="min-w-[180px] bg-slate-50 border-slate-200 text-black">
+                <SelectValue placeholder="Select range" />
+              </SelectTrigger>
+              <SelectContent>
+                {PRESET_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {loading && !analytics ? (

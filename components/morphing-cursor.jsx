@@ -90,7 +90,7 @@ export function MagneticText({
       )}>
       {/* Base text layer - original text */}
       <span
-        className="text-5xl font-bold text-foreground tracking-wide">{text}</span>
+        className="text-6xl font-bold text-foreground tracking-wide">{text}</span>
       <div
         ref={circleRef}
         className="absolute top-0 left-0 pointer-events-none rounded-full bg-foreground overflow-hidden"

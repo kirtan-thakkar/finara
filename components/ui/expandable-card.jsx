@@ -146,8 +146,8 @@ export function ExpandableCard({
               alt={title}
               className="h-56 w-64 rounded-lg object-cover object-center" />
           </motion.div>
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex flex-col min-w-0">
               <motion.p
                 layoutId={`description-${description}-${id}`}
                 className="text-sm font-medium text-zinc-500 md:text-left dark:text-zinc-400">

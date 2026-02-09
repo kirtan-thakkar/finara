@@ -1,5 +1,7 @@
 import { Outfit } from "next/font/google";
-import { ShimmerButton } from "@/components/ui/shimmer-button"
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import localFont from "next/font/local";
 const outfit = Outfit({
   subsets: ["latin"],
@@ -20,13 +22,16 @@ const FifthScreen = () => {
             Use Finara to track smarter, save better, and make every dollar work
             for you.
           </h1>
-          <ShimmerButton
-            background="#1B2BB8"
-            shimmerDuration="4s"
-            shimmerSize="0.15rem"
-          >
-            Start Tracking for Free
-          </ShimmerButton>
+          <Link href="/dashboard">
+            <ShimmerButton
+              background="#1B2BB8"
+              shimmerDuration="4s"
+              shimmerSize="0.15rem"
+              className="gap-2"
+            >
+              Start Tracking for Free <span className="ml-1"><ArrowRight className="size-4 inline" /></span>
+            </ShimmerButton>
+          </Link>
         </div>
       </div>
     </div>
