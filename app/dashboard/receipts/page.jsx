@@ -39,6 +39,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "../../../components/ui/dialog";
+import { ReactLenis } from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -191,7 +192,8 @@ export default function ReceiptsPage() {
   }, { scope: containerRef, dependencies: [transactions, viewMode] });
 
   return (
-    <SidebarProvider>
+    <ReactLenis root>
+      <SidebarProvider>
       <AppSidebar />
       <SidebarInset className={generalSans.className}>
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
@@ -582,6 +584,7 @@ export default function ReceiptsPage() {
           </DialogContent>
         </Dialog>
       </SidebarInset>
-    </SidebarProvider>
+      </SidebarProvider>
+    </ReactLenis>
   );
 }

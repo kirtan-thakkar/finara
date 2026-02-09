@@ -9,6 +9,7 @@ import {
   SidebarInset,
 } from "../../../components/ui/sidebar";
 import { Separator } from "../../../components/ui/separator";
+import { ReactLenis } from "lenis/react";
 
 const generalSans = localFont({
   src: "../../../public/fonts/GeneralSans-Variable.woff2",
@@ -17,7 +18,8 @@ const generalSans = localFont({
 
 export default function ReportsPage() {
   return (
-    <SidebarProvider>
+    <ReactLenis root>
+      <SidebarProvider>
       <AppSidebar />
       <SidebarInset className={generalSans.className}>
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
@@ -49,6 +51,7 @@ export default function ReportsPage() {
           </div>
         </main>
       </SidebarInset>
-    </SidebarProvider>
+      </SidebarProvider>
+    </ReactLenis>
   );
 }

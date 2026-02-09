@@ -4,15 +4,19 @@ import HeroPage from "@/components/HeroSection";
 import SecondPage from "@/components/SecondScreen";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 import FooterSection from "@/components/footer";
+import { ReactLenis, useLenis } from 'lenis/react'
 export default async function Home() {
   
   return (
-    <main>
+    <ReactLenis root>
+      <main>
       <HeroPage />
       <SecondPage />
       <FourthPage />
       <FifthScreen />
       <FooterSection />
     </main>
+
+    </ReactLenis>
   );
 }

@@ -10,7 +10,6 @@ import {
   PieChart,
   Receipt,
   BarChart3,
-  Settings,
   LogOut,
   DollarSign,
 } from "lucide-react";
@@ -33,14 +32,11 @@ const mainNavItems = [
   { icon: Home, label: "Dashboard", href: "/dashboard" },
   { icon: CreditCard, label: "Transactions", href: "/dashboard/transactions" },
   { icon: TrendingUp, label: "Analytics", href: "/dashboard/analytics" },
-  { icon: PieChart, label: "Budget", href: "/dashboard/budget" },
   { icon: Receipt, label: "Receipts", href: "/dashboard/receipts" },
   { icon: BarChart3, label: "Reports", href: "/dashboard/reports" },
 ];
 
-const bottomNavItems = [
-  { icon: Settings, label: "Settings", href: "/dashboard/settings" },
-];
+const bottomNavItems = [];
 
 export function AppSidebar(props) {
   const pathname = usePathname();
