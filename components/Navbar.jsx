@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 import * as React from "react";
 import { Outfit } from "next/font/google";
+import localFont from "next/font/local";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -26,10 +27,7 @@ export function Nav() {
   const { data: session, status } = useSession();
   
   const navItems = [
-    {
-      name: "Company",
-      link: "company",
-    },
+    
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -57,7 +55,7 @@ export function Nav() {
         {/* Desktop Navigation */}
         <NavBody>
           <div className="flex items-center">
-            <span className={`text-xl font-bold text-primary ${outfit.className}`}>finara</span>
+            <span className={`text-xl font-semibold opacity-90 ${outfit.className}`}>Finara</span>
           </div>
           <NavItems items={navItems} />
           <div className="flex items-center gap-4 relative z-100">
@@ -100,7 +98,7 @@ export function Nav() {
         <MobileNav>
           <MobileNavHeader>
             <div className="flex items-center">
-              <span className={`text-xl font-bold text-primary ${outfit.className}`}>finara</span>
+              <span className={`text-xl font-semibold opacity-90  ${outfit.className}`}>Finara</span>
             </div>
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
