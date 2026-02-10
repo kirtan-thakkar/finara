@@ -108,7 +108,7 @@ const HeroPage = () => {
 
                   <div className="max-w-[1056px] mx-auto flex flex-col justify-center items-center gap-2 md:gap-4 mt-8">
                     <h1
-                      className={`text-5xl sm:text-6xl md:text-7xl xl:text-[5.25rem] text-center font-medium tracking-tighter ${outfit.className} opacity-90 max-w-4xl text-balance max-md:font-semibold pointer-events-none bg-linear-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold whitespace-pre-wrap text-transparent`}
+                      className={`text-5xl sm:text-6xl md:text-7xl xl:text-[5.25rem] text-center font-medium tracking-tighter ${outfit.className} opacity-90 max-w-4xl text-balance max-md:font-semibold`}
                     >
                       <BlurFade delay={0.6}>Track Where Your </BlurFade>
                       <BlurFade delay={0.85}>
@@ -189,11 +189,11 @@ const HeroPage = () => {
                 }}
               >
                 <div className="mask-b-from-55% relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20 w-full flex justify-center items-center">
-                  <div className="w-[320px] sm:w-[480px] md:w-[640px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1203px] max-w-6xl">
+                  <div className="w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[65%] max-w-6xl">
                     <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
                       <Safari
                         url="www.finara.com/dashboard"
-                        imageSrc="https://placehold.co/1200x750?text=Hello+World"
+                        imageSrc="/dashboard.png"
                         className="aspect-15/8 relative rounded-2xl border-border/25 border"
                       />
                     </div>
