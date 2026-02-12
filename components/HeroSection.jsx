@@ -60,7 +60,7 @@ const HeroPage = () => {
   });
   return (
     <>
-      <Nav className="z-10 sticky top-0" />
+      <Nav className="z-30 overflow-hidden sticky top-0" />
       <main className="overflow-hidden">
         <div
           aria-hidden
@@ -73,7 +73,7 @@ const HeroPage = () => {
         </div>
 
         <div>
-          <Meteors number={50} minDelay={0.4}  />
+          <Meteors number={30} minDelay={0.4}  />
           <section className="hero-section">
             <div className="relative pt-24 md:pt-36">
               <div
