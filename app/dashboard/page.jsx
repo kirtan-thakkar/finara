@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSession, signIn } from "next-auth/react";
 import { useRef, useState, useEffect, useCallback } from "react";
 import {
   ResponsiveContainer,
@@ -39,6 +40,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -436,6 +438,8 @@ function TransactionsTable({ transactions, loading }) {
 
 export default function DashboardPage() {
   const containerRef = useRef(null);
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
   // State for API data
   const [preset, setPreset] = useState("30days");
@@ -507,6 +511,26 @@ export default function DashboardPage() {
     },
     { scope: containerRef },
   );
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      signIn("google");
+    }
+  }, [status]);
+
+  // Show loading while checking auth
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <ReactLenis root>

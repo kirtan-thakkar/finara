@@ -1,8 +1,7 @@
 "use client";
-import { auth } from "@/auth";
 import localFont from "next/font/local";
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {
   TrendingUp,
@@ -119,8 +118,9 @@ const EMPTY_FORM = {
   recurringInterval: "",
 };
 
-export default async function TransactionsPage() {
+export default function TransactionsPage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -437,11 +437,26 @@ export default async function TransactionsPage() {
 
   const isFormSubmit = sheetMode === "edit" ? handleUpdate : handleCreate;
 
-  const session = await auth();
-  if (!session || !session.user || !session.user.email) {
-    router.push("/login");
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      signIn("google");
+    }
+  }, [status]);
+
+  // Show loading while checking auth
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!session) {
     return null;
   }
+
   return (
     <ReactLenis root>
       {" "}
