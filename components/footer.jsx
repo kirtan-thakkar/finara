@@ -14,7 +14,7 @@ const links = [
     },
     {
         title: 'Github',
-        href: '#https://github.com/kirtan-thakkar',
+        href: 'https://github.com/kirtan-thakkar',
     },
 ]
 
